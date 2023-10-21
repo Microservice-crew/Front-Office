@@ -13,7 +13,7 @@ const companySchema = new Schema(
     websiteUrl: { type: String },
     numTel: { type: String }, //signup
     city: { type: String }, //signup
-    registerCommerce: { type: String }, //file verified by admin + signup
+    registerCommerce: { type: String }, //file verified by admin + signupp
     isConfirmed: { type: Boolean, default: false },
 
     isActive: { type: Boolean, default: false },
