@@ -31,7 +31,7 @@ import RatingsComponentCourse from "../views/dashboard/CourseRatingComponent";
 import TasksEvents from "../views/dashboard/app/TasksEvents";
 import TasksAppliers from "../components/TasksAppliers";
 import CompanyTasks from "../pages/offers/CompanyTasks";
-import StaffsPage from "../pages/meet/staffsPage";
+import StaffsPage from "../pages/meet/StaffsPage";
 
 
 export const SimpleRouter = [
