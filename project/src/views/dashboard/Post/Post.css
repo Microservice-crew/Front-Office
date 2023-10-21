@@ -1,0 +1,47 @@
+.previewImage{
+    position: relative;
+    /* display: flex; */
+}
+
+.previewImage>svg{
+    position: absolute;
+    right: 1rem;
+    top: 0.5rem;
+    cursor: pointer;
+}
+
+.previewImage>img{
+    width: 100%;
+    max-height:35rem;
+    object-fit: cover;
+    border-radius: 0.5rem;
+}
+
+.Post
+{
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    background-color:white;
+    border-radius: 1rem;
+    gap: 1rem;
+}
+
+.Post>img{
+    width: 100%;
+    max-height: 35rem;
+    object-fit: cover;
+    border-radius: 0.5rem;
+}
+
+.postReact{
+    display: flex;
+    align-items: flex-start;
+    gap: 1.5rem;
+}
+.Posts
+{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
