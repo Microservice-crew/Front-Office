@@ -3,7 +3,6 @@ const registerUserSchema = yup.object().shape({
   fullName: yup.string().required().max(255),
   password: yup.string().required().max(1024).min(8),
   email: yup.string().email().required(),
-  birthDate: yup.date().required(),
   gender: yup.string().required().max(255).oneOf(["male", "female", "other"]),
   confirmPassword: yup
     .string()
@@ -11,7 +10,6 @@ const registerUserSchema = yup.object().shape({
     .oneOf([yup.ref("password"), null], "Passwords must match"),
   numTel: yup.string().required().max(8).min(8),
   city: yup.string().required().max(255),
-  cin: yup.mixed().required(),
 });
 
 const updateUserSchema = yup.object().shape({
@@ -37,7 +35,6 @@ const registerExpertSchema = yup.object().shape({
   fullName: yup.string().required().max(255),
   password: yup.string().required().max(1024).min(8),
   email: yup.string().email().required(),
-  birthDate: yup.date().required(),
   gender: yup.string().required().max(255).oneOf(["male", "female", "other"]),
   confirmPassword: yup
     .string()

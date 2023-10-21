@@ -3,7 +3,6 @@ const registerUserSchema = yup.object().shape({
   fullName: yup.string().required().max(255),
   password: yup.string().required().max(1024).min(8),
   email: yup.string().email().required(),
-  birthDate: yup.date().required(),
   gender: yup.string().required().max(255).oneOf(["male", "female", "other"]),
   confirmPassword: yup
     .string()
@@ -36,7 +35,6 @@ const registerExpertSchema = yup.object().shape({
   fullName: yup.string().required().max(255),
   password: yup.string().required().max(1024).min(8),
   email: yup.string().email().required(),
-  birthDate: yup.date().required(),
   gender: yup.string().required().max(255).oneOf(["male", "female", "other"]),
   confirmPassword: yup
     .string()

@@ -29,7 +29,6 @@ const SignUp = () => {
     confirmpassword: "",
     adress: "",
     city: "",
-    birthday: "",
     gender: "",
     competence: "",
     experience: "",
@@ -83,12 +82,6 @@ const SignUp = () => {
             <Row>
               <Col>
                 <Form.Group className="form-group">
-                  <Form.Label>Date Of Birth: </Form.Label>
-                  <Form.Control type="date" id="dob" name="dob" />
-                </Form.Group>
-              </Col>
-              <Col>
-                <Form.Group className="form-group">
                   <Form.Label>Gender: </Form.Label>
                   <Form.Check className="form-check">
                     <Form.Check className="form-check form-check-inline">
@@ -131,12 +124,6 @@ const SignUp = () => {
         return (
           <div>
             <Row>
-              <Col>
-                <Form.Group className="form-group">
-                  <Form.Label>Date Of Birth: </Form.Label>
-                  <Form.Control type="date" id="dob" name="dob" />
-                </Form.Group>
-              </Col>
               <Col>
                 <Form.Group className="form-group">
                   <Form.Label>Gender: </Form.Label>

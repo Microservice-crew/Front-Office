@@ -4,7 +4,6 @@ const userValidator = yup.object().shape({
   fullName: yup.string().required().max(255),
   password: yup.string().required().max(1024).min(8),
   email: yup.string().email().required(),
-  birthDate: yup.date().required(),
   gender: yup.string().required().max(255).oneOf(["male", "female", "other"]),
   city: yup.string().required().max(255),
   role: yup.string().required().max(255).oneOf(["user", "admin", "expert"]),
@@ -12,7 +11,6 @@ const userValidator = yup.object().shape({
 });
 const userProfile = yup.object().shape({
   fullName: yup.string().required().max(255),
-  birthDate: yup.date().required(),
   gender: yup.string().required().max(255).oneOf(["male", "female", "other"]),
   city: yup.string().required().max(255),
   role: yup.string().required().max(255).oneOf(["user", "admin", "expert"]),

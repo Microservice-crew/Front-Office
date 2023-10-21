@@ -13,7 +13,6 @@ const RegisterExpert = () => {
     fullName: "",
     password: "",
     email: "",
-    birthDate: "",
     confirmPassword: "",
     gender: "male",
     numTel: "",

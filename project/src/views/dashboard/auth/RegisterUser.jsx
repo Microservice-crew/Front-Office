@@ -13,13 +13,11 @@ const RegisterUser = () => {
     fullName: "",
     password: "",
     email: "",
-    birthDate: "",
     confirmPassword: "",
     gender: "male",
     numTel: "",
     city: "",
     role: "user",
-    cin: null,
   };
   return (
     <Formik
@@ -126,26 +124,7 @@ const RegisterUser = () => {
                   <span className="fs-6 mt-3" style={{ color: "#607d8b" }}>
                     Carte Etudiant
                   </span>
-                  <div>
-                    <label
-                      htmlFor="cin"
-                      className="text-grey-500 mt-3 font-xsss fw-500 mt-0 mb-0 lh-32"
-                    />
-                    <input
-                      accept="application/pdf"
-                      type="file"
-                      name="cin"
-                      onChange={(e) => {
-                        setFieldValue("cin", e.target.files[0]);
-                      }}
-                      onBlur={handleBlur}
-                    />
-                    {errors.cin && touched.cin && (
-                      <div className="text-danger">
-                        <span className="text-grey-500">{errors.cin}</span>
-                      </div>
-                    )}
-                  </div>
+            
 
                   <Button
                     fullWidth
