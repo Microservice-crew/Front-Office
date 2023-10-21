@@ -30,6 +30,11 @@ function Popup(props) {
 
 const CardOffer = ({
   id,
+  numeroChambre,
+  type,
+  capacite,
+  prixParNuit,
+  disponibilite,
   name,
   description,
   mode,
@@ -48,6 +53,11 @@ const CardOffer = ({
   const formattedDate = date.toLocaleDateString("en-US", options);
 
   const initialValues = {
+    numeroChambre,
+    type,
+    capacite,
+    prixParNuit,
+    disponibilite,
     name,
     ConditionScore,
     description,
@@ -166,38 +176,38 @@ const CardOffer = ({
     { label: "Canva ", value: "Canva" },
   ];
 
-    const optionsNombre = [
-      { label: "1", value: 1 },
-      { label: "2", value: 2 },
-      { label: "3", value: 3 },
-      { label: "4", value: 4 },
-      { label: "5", value: 5 },
-      { label: "6", value: 6 },
-      { label: "7", value: 7 },
-      { label: "8", value: 8 },
-      { label: "9", value: 9 },
-      { label: "10", value: 10 },
-      { label: "11", value: 11 },
-      { label: "12", value: 12 },
-      { label: "13", value: 13 },
-      { label: "14", value: 14 },
-      { label: "15", value: 15 },
-      { label: "16", value: 16 },
-      { label: "17", value: 17 },
-      { label: "18", value: 18 },
-      { label: "19", value: 19 },
-      { label: "20", value: 20 },
-      { label: "21", value: 21 },
-      { label: "22", value: 22 },
-      { label: "23", value: 23 },
-      { label: "24", value: 24 },
-      { label: "25", value: 25 },
-      { label: "26", value: 26 },
-      { label: "27", value: 27 },
-      { label: "28", value: 28 },
-      { label: "29", value: 29 },
-      { label: "30", value: 30 },
-    ];
+  const optionsNombre = [
+    { label: "1", value: 1 },
+    { label: "2", value: 2 },
+    { label: "3", value: 3 },
+    { label: "4", value: 4 },
+    { label: "5", value: 5 },
+    { label: "6", value: 6 },
+    { label: "7", value: 7 },
+    { label: "8", value: 8 },
+    { label: "9", value: 9 },
+    { label: "10", value: 10 },
+    { label: "11", value: 11 },
+    { label: "12", value: 12 },
+    { label: "13", value: 13 },
+    { label: "14", value: 14 },
+    { label: "15", value: 15 },
+    { label: "16", value: 16 },
+    { label: "17", value: 17 },
+    { label: "18", value: 18 },
+    { label: "19", value: 19 },
+    { label: "20", value: 20 },
+    { label: "21", value: 21 },
+    { label: "22", value: 22 },
+    { label: "23", value: 23 },
+    { label: "24", value: 24 },
+    { label: "25", value: 25 },
+    { label: "26", value: 26 },
+    { label: "27", value: 27 },
+    { label: "28", value: 28 },
+    { label: "29", value: 29 },
+    { label: "30", value: 30 },
+  ];
 
   const optionsMode = [
     { label: "Local ", value: "local" },
@@ -261,17 +271,13 @@ const CardOffer = ({
         </div>
 
         <div className="text-truncate-container">
-          <Col className="d-flex w-100 ">
-            <h3
-              className="card-title text-center mx-auto"
-              style={{ fontWeight: "bold" }}
-            >
-              {name}
-            </h3>
+          <Col className="d-flex w-100 justify-content-evenly ">
+            <h4>numero Chambre</h4>
+            <h4>{numeroChambre}</h4>
           </Col>
           <Col className="d-flex w-100 justify-content-evenly">
-            <h4>Condition Score</h4>
-            <h4>{ConditionScore}</h4>
+            <h4>capacite</h4>
+            <h4>{capacite}</h4>
           </Col>
           <h4>Description :</h4>
           <textarea
@@ -287,9 +293,13 @@ const CardOffer = ({
           >
             {description}
           </textarea>
+          <Col className="d-flex w-100 justify-content-evenly">
+            <h4>prix Par Nuit</h4>
+            <h4>{prixParNuit}</h4>
+          </Col>
         </div>
         <Col className="d-flex w-100 justify-content-evenly">
-          <h4 className="mt-2">Category:</h4>
+          <h4 className="mt-2">Type Chambre:</h4>
           <span
             style={{ fontSize: "14px" }}
             className={`badge badge-pill  p-2 mt-1  mx-3 ${

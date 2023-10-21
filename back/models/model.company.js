@@ -16,7 +16,11 @@ const companySchema = new Schema(
     registerCommerce: { type: String }, //file verified by admin + signup
     isConfirmed: { type: Boolean, default: false },
 
+    description: { type: String },
+    isBlocked: { type: Boolean, default: false },
     isActive: { type: Boolean, default: false },
+    listofRates: [{ type: mongoose.Schema.Types.ObjectId, ref: "Rating" }],
+    averageRating: { type: Number, default: 0 },
   },
   { timestamps: true }
 );

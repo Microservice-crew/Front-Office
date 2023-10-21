@@ -29,6 +29,11 @@ function Popup(props) {
 
 const CardTask = ({
   id,
+  numeroChambre,
+  type,
+  capacite,
+  prixParNuit,
+  disponibilite,
   name,
   description,
   websiteUrl,
@@ -46,6 +51,11 @@ const CardTask = ({
   const formattedDate = date.toLocaleDateString("en-US", options);
 
   const initialValues = {
+    numeroChambre,
+  type,
+  capacite,
+  prixParNuit,
+  disponibilite,
     name,
     description,
     requirements,

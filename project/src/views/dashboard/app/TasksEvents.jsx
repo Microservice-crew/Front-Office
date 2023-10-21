@@ -18,11 +18,16 @@ import TextareaInput from "../../../components/TextareaInput";
 
 const ProfileEvents = () => {
   const initialValues = {
-    name: "",
+    nom: "",
+    adresse: "",
+
+    // name: "",
     description: "",
-    requirements: [],
-    nombre: 0,
-    ExpireDate: "",
+    etoiles: 0,
+    prixParNuit: 0,
+    // requirements: [],
+    // nombre: 0,
+    // ExpireDate: "",
   };
 
   const [tasks, setTasks] = useState();
@@ -123,6 +128,13 @@ const ProfileEvents = () => {
     { label: "30", value: 30 },
   ];
 
+  const optionsEtoiles = [
+    { label: "1", value: 1 },
+    { label: "2", value: 2 },
+    { label: "3", value: 3 },
+    { label: "4", value: 4 },
+    { label: "5", value: 5 },
+  ];
   const optionsMode = [
     { label: "Local ", value: "local" },
     { label: "Remote ", value: "remote" },
@@ -148,12 +160,12 @@ const ProfileEvents = () => {
             className="d-flex flex-row align-items-center justify-content-between mb-5"
           >
             <h1 className=" " style={{ fontWeight: "bold" }}>
-              Task Offers:
+              Hotels:
             </h1>
             <div className="d-flex gap-3">
-              <Button onClick={() => handleAll()}>All Tasks</Button>
+              <Button onClick={() => handleAll()}>All Hotels</Button>
 
-              <Button onClick={() => handleShowAdd()}>Add Task</Button>
+              <Button onClick={() => handleShowAdd()}>Add Hotel</Button>
             </div>
           </div>
           <div className="d-flex flex-row flex-wrap gap-5">
@@ -178,7 +190,7 @@ const ProfileEvents = () => {
               onHide={handleCloseAdd}
             >
               <Modal.Header closeButton>
-                <Modal.Title>Add Task</Modal.Title>
+                <Modal.Title>Add Hotel</Modal.Title>
               </Modal.Header>
               <Modal.Body>
                 <Formik
@@ -215,11 +227,12 @@ const ProfileEvents = () => {
                           <Form>
                             <Stack sx={{ mt: 1 }} spacing={2}>
                               <Box sx={{ mb: 1 }} />
-                              <label className="mt-3">Title</label>
+
+                              <label className="mt-3">Nom Hotel</label>
                               <InputText
                                 type="text"
-                                name="name"
-                                placeholder="Title"
+                                name="nom"
+                                placeholder="Nom Hotel"
                                 variant="outlined"
                                 className="mt-4"
                               />
@@ -238,26 +251,21 @@ const ProfileEvents = () => {
                                 variant="outlined"
                               />
 
+                              <label className="mt-3">Etoiles</label>
                               <MultipleSelect
-                                name="requirements"
-                                label="Requirements"
-                                options={options}
-                                required
-                                multiple
-                              />
-                              <label className="mt-3">Nombre Condidat</label>
-                              <MultipleSelect
-                                name="nombre"
-                                label="Nombre Condidat"
-                                options={optionsNombre}
+                                name="etoiles"
+                                label="Nombre etoiles"
+                                options={optionsEtoiles}
                                 required
                               />
-                              <label className="mt-3">Expires Date</label>
+
+                              <label className="mt-3">prixParNuit</label>
                               <InputText
-                                type="date"
-                                name="ExpireDate"
+                                name="prixParNuit"
                                 variant="outlined"
+                                type="number"
                                 className="mt-4"
+                                required
                               />
 
                               <Button
