@@ -209,6 +209,26 @@ const VerticalNav = React.memo(() => {
             </OverlayTrigger>
             <span className="item-name">Meets</span>
           </Link>
+          
+        </Nav.Item>
+
+        <Nav.Item as="li">
+          <Link
+            className={`${
+              location.pathname === "/dashboards/app/staffs" ? "active" : ""
+            } nav-link `}
+            aria-current="page"
+            to="/dashboards/app/staffs"
+          >
+            <OverlayTrigger
+              placement="right"
+              overlay={<Tooltip>Group</Tooltip>}
+            >
+              <i className="icon material-symbols-outlined">groups</i>
+            </OverlayTrigger>
+            <span className="item-name">Staffs</span>
+          </Link>
+          
         </Nav.Item>
 
         {expert ? (
