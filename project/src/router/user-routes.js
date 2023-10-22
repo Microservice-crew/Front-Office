@@ -31,6 +31,8 @@ import RatingsComponentCourse from "../views/dashboard/CourseRatingComponent";
 import TasksEvents from "../views/dashboard/app/TasksEvents";
 import TasksAppliers from "../components/TasksAppliers";
 import CompanyTasks from "../pages/offers/CompanyTasks";
+import AddSponsorComponent from "../views/dashboard/addSponsor";
+import UpdateSponsorComponent from "../views/dashboard/updateSponsor";
 
 
 export const SimpleRouter = [
@@ -247,6 +249,24 @@ export const SimpleRouter = [
   {
     path: "/update",
     element: <UpdateProfilePage />,
+  },
+  {
+    path: "/addSponsor",
+    element: (
+      <>
+        <Sidebar />
+        <Header /> <AddSponsorComponent />
+      </>
+    ),
+  },
+  {
+    path: "/updateSponsor",
+    element: (
+      <>
+        <Sidebar />
+        <Header /> <UpdateSponsorComponent />
+      </>
+    ),
   },
 ];
 
