@@ -176,6 +176,51 @@ const VerticalNav = React.memo(() => {
               </OverlayTrigger>
               <span className="item-name">Chambres</span>
             </Link>
+            <Link
+              className={`${
+                location.pathname === "/dashboards/app/staff" ? "active" : ""
+              } nav-link `}
+              aria-current="page"
+              to="/dashboards/app/staff"
+            >
+              <OverlayTrigger
+                placement="right"
+                overlay={<Tooltip>Group</Tooltip>}
+              >
+                <i className="icon material-symbols-outlined">groups</i>
+              </OverlayTrigger>
+              <span className="item-name">Staff</span>
+            </Link>
+            <Link
+              className={`${
+                location.pathname === "/dashboards/app/flight" ? "active" : ""
+              } nav-link `}
+              aria-current="page"
+              to="/dashboards/app/flight"
+            >
+              <OverlayTrigger
+                placement="right"
+                overlay={<Tooltip>Group</Tooltip>}
+              >
+                <i className="icon material-symbols-outlined">groups</i>
+              </OverlayTrigger>
+              <span className="item-name">Flight</span>
+            </Link>
+            <Link
+              className={`${
+                location.pathname === "/dashboards/app/seat" ? "active" : ""
+              } nav-link `}
+              aria-current="page"
+              to="/dashboards/app/seat"
+            >
+              <OverlayTrigger
+                placement="right"
+                overlay={<Tooltip>Group</Tooltip>}
+              >
+                <i className="icon material-symbols-outlined">groups</i>
+              </OverlayTrigger>
+              <span className="item-name">Seat</span>
+            </Link>
           </Nav.Item>
         ) : (
           <Nav.Item as="li">
@@ -193,6 +238,54 @@ const VerticalNav = React.memo(() => {
                 <i className="icon material-symbols-outlined">groups</i>
               </OverlayTrigger>
               <span className="item-name">All Chambres</span>
+            </Link>
+
+            <Link
+              className={`${
+                location.pathname === "/dashboards/app/allStaff" ? "active" : ""
+              } nav-link `}
+              aria-current="page"
+              to="/dashboards/app/allStaff"
+            >
+              <OverlayTrigger
+                placement="right"
+                overlay={<Tooltip>Group</Tooltip>}
+              >
+                <i className="icon material-symbols-outlined">groups</i>
+              </OverlayTrigger>
+              <span className="item-name">All Staff</span>
+            </Link>
+            <Link
+              className={`${
+                location.pathname === "/dashboards/app/allFlight"
+                  ? "active"
+                  : ""
+              } nav-link `}
+              aria-current="page"
+              to="/dashboards/app/allFlight"
+            >
+              <OverlayTrigger
+                placement="right"
+                overlay={<Tooltip>Group</Tooltip>}
+              >
+                <i className="icon material-symbols-outlined">groups</i>
+              </OverlayTrigger>
+              <span className="item-name">All Flight</span>
+            </Link>
+            <Link
+              className={`${
+                location.pathname === "/dashboards/app/allSeat" ? "active" : ""
+              } nav-link `}
+              aria-current="page"
+              to="/dashboards/app/allSeat"
+            >
+              <OverlayTrigger
+                placement="right"
+                overlay={<Tooltip>Group</Tooltip>}
+              >
+                <i className="icon material-symbols-outlined">groups</i>
+              </OverlayTrigger>
+              <span className="item-name">All Seat</span>
             </Link>
           </Nav.Item>
         )}

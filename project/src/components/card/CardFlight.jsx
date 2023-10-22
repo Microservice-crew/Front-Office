@@ -1,22 +1,13 @@
 import React, { useEffect, useState } from "react";
 import "./cardOffer.css";
-import { Button, Dropdown, Modal, Table, Form, Col } from "react-bootstrap";
+import { Button, Col, Dropdown, Modal, Row } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import InputText from "../InputText";
 import { Box, Grid } from "@material-ui/core";
-import { Formik } from "formik";
+import { Form, Formik } from "formik";
 import { Stack } from "@mui/material";
-import { taskValidator } from "../../schemas/tasks.schema";
-import {
-  applytask,
-  deletetask,
-  edittask,
-  unApplytask,
-  updateUri,
-} from "../../api/tasks";
+import { addOfferSchema } from "../../schemas/offer.shema";
 import MultipleSelect from "../Select";
-import GitHubIcon from "@mui/icons-material/GitHub";
-import TextareaInput from "../TextareaInput";
 function Popup(props) {
   return (
     <div className="popup">
@@ -27,22 +18,30 @@ function Popup(props) {
     </div>
   );
 }
-
-const CardTask = ({ id, nom, adresse, description, etoile, prixParNuit }) => {
-  // const date = new Date(publishedDate);
-  const options = { day: "numeric", month: "long" };
-  // const formattedDate = date.toLocaleDateString("en-US", options);
-
-  const initialValues = { id, nom, adresse, description, etoile, prixParNuit };
-  const initialUri = {
-    url: "",
-    user: JSON.parse(localStorage.getItem("myData")).user._id,
-    id: id,
+const CardFlight = ({
+  id,
+  flightNumber,
+  departureCity,
+  arrivalDateTime,
+  departureDateTime,
+  arrivalCity,
+  airline,
+  availableSeat,
+  ticketPrice,
+}) => {
+  const initialValues = {
+    flightNumber,
+    departureCity,
+    arrivalDateTime,
+    departureDateTime,
+    arrivalCity,
+    airline,
+    availableSeat,
+    ticketPrice,
   };
 
   const [margin, setMargin] = useState(false);
   const [user, setUser] = useState();
-  const [uri, setUri] = useState(initialUri);
 
   const [showPopup, setShowPopup] = useState(false);
 
@@ -67,11 +66,11 @@ const CardTask = ({ id, nom, adresse, description, etoile, prixParNuit }) => {
       setMargin(false);
     }
   }, []);
+
   const [show, setShow] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
   const [showDetails, setShowDetails] = useState(false);
   const [showApplied, setShowApplied] = useState(false);
-  const [validation, setValidation] = useState(false);
   // const [applied, setApplied] = useState(
   //   appliers?.some?.(
   //     (e) =>
@@ -87,9 +86,6 @@ const CardTask = ({ id, nom, adresse, description, etoile, prixParNuit }) => {
   const handleCloseApplied = () => setShowApplied(false);
   const handleShowApplied = () => setShowApplied(true);
 
-  const handleCloseVal = () => setValidation(false);
-  const handleShowVal = () => setValidation(true);
-
   const handleCloseEdit = () => setShowEdit(false);
   const handleShowEdit = () => setShowEdit(true);
 
@@ -99,32 +95,30 @@ const CardTask = ({ id, nom, adresse, description, etoile, prixParNuit }) => {
   const handleChange = (e) => {
     setValue(e.target.value);
   };
-  const handleChanges = (e) => {
-    setUri({ ...initialUri, [e.target.name]: e.target.value });
-  };
 
   const handleDelete = async (id) => {
-    const response = await deletetask(id);
-    // tasks();
+    // const response = await deleteOffer(id);
+    // offers();
   };
 
   const navigate = useNavigate();
 
   const handleAplliers = (id) => {
-    navigate(`/dashboard/app/tasks/appliers/${id}`);
+    navigate(`/dashboard/app/groups/appliers/${id}`);
   };
 
   const handleApply = async (id) => {
     let response;
+    // console.log(user._id);
     // if (!applied) {
-    //   response = await applytask(id, user._id);
+    //   response = await applyOffer(id, user._id);
     // } else {
-    //   response = await unApplytask(id, user._id);
+    //   response = await unApplyOffer(id, user._id);
     // }
     // if (response.status !== "404") {
     //   setApplied(!applied);
     // }
-    // tasks();
+    // offers();
   };
 
   const options1 = [
@@ -156,51 +150,56 @@ const CardTask = ({ id, nom, adresse, description, etoile, prixParNuit }) => {
   ];
 
   const optionsNombre = [
-    { label: "1 - 5", value: "1 - 5" },
-    { label: "1 - 10", value: "1 - 10" },
-    { label: "1 - 15", value: "1 - 15" },
-    { label: "1 - 20", value: "1 - 20" },
-    { label: "1 - 25", value: "1 - 25" },
-    { label: "1 - 30", value: "1 - 30" },
-    { label: "1 - 35", value: "1 - 35" },
-    { label: "1 - 40", value: "1 - 40" },
-    { label: "1 - 45", value: "1 - 45" },
-    { label: "1 - 50", value: "1 - 50" },
-    { label: "1 - 55 ", value: "1 - 55" },
-    { label: "1 - 60 ", value: "1 - 60" },
-  ];
-
-  const optionsMode = [
-    { label: "Local ", value: "local" },
-    { label: "Remote ", value: "remote" },
-  ];
-
-  const optionsCategory = [
-    { label: "FullTime ", value: "fullTime" },
-    { label: "PartTime ", value: "partTime" },
-    { label: "Internship ", value: "internship" },
-  ];
-
-  const optionsEtoiles = [
     { label: "1", value: 1 },
     { label: "2", value: 2 },
     { label: "3", value: 3 },
     { label: "4", value: 4 },
     { label: "5", value: 5 },
+    { label: "6", value: 6 },
+    { label: "7", value: 7 },
+    { label: "8", value: 8 },
+    { label: "9", value: 9 },
+    { label: "10", value: 10 },
+    { label: "11", value: 11 },
+    { label: "12", value: 12 },
+    { label: "13", value: 13 },
+    { label: "14", value: 14 },
+    { label: "15", value: 15 },
+    { label: "16", value: 16 },
+    { label: "17", value: 17 },
+    { label: "18", value: 18 },
+    { label: "19", value: 19 },
+    { label: "20", value: 20 },
+    { label: "21", value: 21 },
+    { label: "22", value: 22 },
+    { label: "23", value: 23 },
+    { label: "24", value: 24 },
+    { label: "25", value: 25 },
+    { label: "26", value: 26 },
+    { label: "27", value: 27 },
+    { label: "28", value: 28 },
+    { label: "29", value: 29 },
+    { label: "30", value: 30 },
   ];
-  const updateUris = async (values, { setSubmitting }) => {
-    try {
-      const response = await updateUri(values);
-      handleCloseVal();
-      return response;
-    } catch (err) {
-      console.log(err.message);
-    }
-    setSubmitting(false);
-  };
+  const Departement = [
+    { label: "RECEPTION", value: "RECEPTION" },
+    { label: "NETTOYAGE", value: "NETTOYAGE" },
+    { label: "RESTAURATION", value: "RESTAURATION" },
+    { label: "MAINTENANCE", value: "MAINTENANCE" },
+  ];
+  const optionsMode = [
+    { label: "TRUE ", value: "TRUE" },
+    { label: "False ", value: "FALSE" },
+  ];
+
+  const optionsCategory = [
+    { label: "SIMPLE ", value: "SIMPLE" },
+    { label: "DOUBLE ", value: "DOUBLE" },
+    { label: "SUITE ", value: "SUITE" },
+  ];
   return (
     <div
-      className="card "
+      className="card"
       style={{
         width: "31%",
         height: "20%",
@@ -210,15 +209,13 @@ const CardTask = ({ id, nom, adresse, description, etoile, prixParNuit }) => {
     >
       <div className="card-body flex flxe-col">
         <div className="d-flex justify-content-between align-items-center">
-          <div className="d-flex justify-content-around align-items-center gap-3">
-            {/* <img height="70px" width="80px" src="http://www.ensit.tn/wp-content/uploads/2021/02/1549615448898.png" alt="img" /> */}
-
+          <div className="d-flex justify-content-around align-items-center gap-5">
             <h5 className="card-title" style={{ fontWeight: "bold" }}>
-              {nom} ⭐
+              {flightNumber} ⭐
             </h5>
           </div>
-          <h6 className="card-subtitle mb-2 text-body-secondary">{adresse}</h6>
-          {user && user.role !== "user" && user.role !== "expert" ? (
+          <h6 className="card-subtitle mb-2 text-body-secondary">{airline}</h6>
+          {user && user.role !== "user" && user.role !== "expert" && (
             <Dropdown>
               <Link to="#">
                 <Dropdown.Toggle
@@ -245,49 +242,43 @@ const CardTask = ({ id, nom, adresse, description, etoile, prixParNuit }) => {
                 </Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
-          ) : (
-            // applied && (
-            //   <GitHubIcon
-            //     variant="contained"
-            //     color="success"
-            //     onClick={() => handleShowVal()}
-            //   />
-            // )
-            <></>
           )}
         </div>
+
         <div className="text-truncate-container">
           <Col className="d-flex w-100 justify-content-evenly ">
-            <h4>Nom Hotel :</h4>
-            <h4>{nom}</h4>
+            <h4>departure City</h4>
+            <h4>{departureCity}</h4>
           </Col>
-          <Col className="d-flex w-100 justify-content-evenly ">
-            <h4>Adresse</h4>
-            <h4>{adresse}</h4>
+          <Col className="d-flex w-100 justify-content-evenly">
+            <h4>arrival Date</h4>
+            <h4>{arrivalDateTime}</h4>
           </Col>
-          <h4>Description:</h4>
-          <textarea
-            className="form-control"
-            id="exampleFormControlTextarea1"
-            rows="3"
-            style={{
-              overflow: "scroll",
-              overflowX: "hidden",
-              overflowY: "scroll",
-            }}
-            value={description}
-            readOnly
-          ></textarea>
-          <Col className="d-flex w-100 justify-content-evenly ">
-            <h4>Etoiles</h4>
-            <h4>{etoile}</h4>
-          </Col>
-          <Col className="d-flex w-100 justify-content-evenly ">
-            <h4>prixParNuit</h4>
-            <h4>{prixParNuit}</h4>
+
+          <Col className="d-flex w-100 justify-content-evenly">
+            <h4>ticket Price</h4>
+            <h4>{ticketPrice}</h4>
           </Col>
         </div>
-        etoiles
+        <Col className="d-flex w-100 justify-content-evenly">
+          <h4 className="mt-2">Type Chambre:</h4>
+          <span
+            style={{ fontSize: "14px" }}
+            className={`badge badge-pill  p-2 mt-1  mx-3 `}
+          >
+            {airline}
+          </span>
+        </Col>
+
+        <Col className="d-flex w-100 justify-content-evenly">
+          <h4 className="mt-1">disponibilite:</h4>
+          <span
+            style={{ fontSize: "14px" }}
+            className={`badge badge-pill   p-2 mt-1 mx-3 `}
+          >
+            {availableSeat}
+          </span>
+        </Col>
         <div className="card-footer d-flex justify-content-center gap-5">
           {user && user.role === "company" ? (
             <button
@@ -302,9 +293,9 @@ const CardTask = ({ id, nom, adresse, description, etoile, prixParNuit }) => {
           ) : (
             // <button
             //   type="button"
-            //   // className={
-            //   //   maxAppliers === nombre ? "btn disabled" : "btn btn-success"
-            //   // }
+            //   className={
+            //     maxAppliers === nombre ? "btn disabled" : "btn btn-success"
+            //   }
             //   onClick={() => {
             //     handleApply(id);
             //     handleShowApplied();
@@ -312,6 +303,7 @@ const CardTask = ({ id, nom, adresse, description, etoile, prixParNuit }) => {
             // >
             //   {applied ? "UnApply" : "Apply"}
             // </button>
+
             <></>
           )}
           {showPopup && (
@@ -335,32 +327,25 @@ const CardTask = ({ id, nom, adresse, description, etoile, prixParNuit }) => {
         onHide={handleCloseDetails}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Hotel Details</Modal.Title>
+          <Modal.Title>Flight Details</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <h2 className="text-center">{nom}</h2>
-          <h4 className="my-3">Adresse :</h4>
-          <h4 className="text-center">{adresse}</h4>
-          <h4 className="my-3">Description:</h4>
-          <textarea
-            className="form-control"
-            id="exampleFormControlTextarea1"
-            rows="3"
-            style={{
-              overflow: "scroll",
-              overflowX: "hidden",
-              overflowY: "scroll",
-            }}
-            readOnly
-          >
-            {description}
-          </textarea>
+          <h2 className="text-center">{flightNumber}</h2>
 
-          <h4 className="my-3">etoiles :</h4>
-          <h4>{etoile}</h4>
-
-          <h4>prixParNuit</h4>
-          <h4>{prixParNuit}</h4>
+          <Col className="d-flex w-100 justify-content-evenly">
+            <h4>departure Date Time</h4>
+            <h4>{departureDateTime}</h4>
+          </Col>
+          <h4 className="my-3">arrival Date Time:</h4>
+          <h5>{arrivalDateTime}</h5>
+          <h4 className="my-3">airline:</h4>
+          <h5>{airline}</h5>
+          <h4 className="my-3">arrival City:</h4>
+          <h5>{arrivalCity}</h5>
+          <h4 className="my-3">available Seat:</h4>
+          <h5>{availableSeat}</h5>
+          <h4 className="my-3">ticket Price:</h4>
+          <h5>{ticketPrice}</h5>
         </Modal.Body>
 
         <Modal.Footer>
@@ -372,9 +357,9 @@ const CardTask = ({ id, nom, adresse, description, etoile, prixParNuit }) => {
 
       <Modal style={{ marginTop: "10rem" }} show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Delete Hotel : {` ${nom}`}</Modal.Title>
+          <Modal.Title>Delete Flight : {` ${flightNumber}`}</Modal.Title>
         </Modal.Header>
-        <Modal.Body>Are you sure you want to delete this hotel ?</Modal.Body>
+        <Modal.Body>Are you sure you want to delete this Flight ?</Modal.Body>
 
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
@@ -387,98 +372,30 @@ const CardTask = ({ id, nom, adresse, description, etoile, prixParNuit }) => {
       </Modal>
 
       <Modal
-        style={{ marginTop: "10rem" }}
-        show={validation}
-        onHide={handleCloseVal}
-      >
-        <Formik
-          initialValues={initialUri} // Initialize with an empty uri field
-          onSubmit={updateUris} // Use the correct onSubmit function and pass values as the first argument
-        >
-          {({
-            isSubmitting,
-            handleChange: handleChanges,
-            handleSubmit: updateUri,
-          }) => (
-            <Form onSubmit={updateUri}>
-              <Modal.Header closeButton>
-                <Modal.Title>Confirm Your Task now</Modal.Title>
-              </Modal.Header>
-              <Modal.Body>
-                <Modal.Title>
-                  Send your work from GitHub repository URL
-                </Modal.Title>
-                <input
-                  type="text"
-                  name="url"
-                  placeholder="www.github.com/repository"
-                  variant="outlined"
-                  className="mt-4"
-                  onChange={handleChanges}
-                />
-              </Modal.Body>
-
-              <Modal.Footer>
-                <Button
-                  type="submit"
-                  className="btn btn-success"
-                  onSubmit={updateUri}
-                >
-                  {isSubmitting ? "isSubmitting...." : "Send"}
-                </Button>
-                <Button variant="secondary" onClick={handleCloseVal}>
-                  Close
-                </Button>
-              </Modal.Footer>
-            </Form>
-          )}
-        </Formik>
-      </Modal>
-
-      <Modal
-        style={{ marginTop: "10rem" }}
-        show={showApplied}
-        onHide={handleCloseApplied}
-      >
-        <Modal.Header closeButton>
-          <Modal.Title>Congratulation</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <h5>You have applied to</h5> <h3> {nom}</h3>
-        </Modal.Body>
-
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseApplied}>
-            Close
-          </Button>
-        </Modal.Footer>
-      </Modal>
-
-      <Modal
         style={{ marginTop: "5rem" }}
         show={showEdit}
         onHide={handleCloseEdit}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Edit Offer : {` ${nom}`}</Modal.Title>
+          <Modal.Title>Edit Flight : {` ${flightNumber}`}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <p>Are you sure you want to Update this offer ?</p>
+          <p>Are you sure you want to Update this Flight ?</p>
 
           <Formik
             initialValues={initialValues}
             onSubmit={async (values, { errors, setErrors, setSubmitting }) => {
               console.log(values);
               try {
-                const response = await edittask(id, values);
+                // const response = await editOffer(id, values);
                 handleCloseEdit();
-                // tasks();
-                console.log(response);
+                // offers();
+                // console.log(response);
               } catch (err) {
                 console.log(err);
               }
             }}
-            validationSchema={taskValidator}
+            validationSchema={addOfferSchema}
           >
             {({ isSubmitting }) => (
               <Grid container component="main" sx={{ height: "100vh" }}>
@@ -496,43 +413,77 @@ const CardTask = ({ id, nom, adresse, description, etoile, prixParNuit }) => {
                     <Form>
                       <Stack sx={{ mt: 1 }} spacing={2}>
                         <Box sx={{ mb: 1 }} />
+                        <Row className="w-100  mx-auto">
+                          <Col className="mx-auto">
+                            <InputText
+                              type="text"
+                              name="flightNumber"
+                              placeholder="flight Number"
+                              variant="outlined"
+                              className="mt-4"
+                            />
 
-                        <label className="mt-3">Nom Hotel</label>
+                            <InputText
+                              name="departureCity"
+                              variant="outlined"
+                              placeholder="Departure City"
+                              type="text"
+                              className="mt-4"
+                              required
+                            />
+
+                            <InputText
+                              name="arrivalCity"
+                              variant="outlined"
+                              placeholder="Arrival City"
+                              type="text"
+                              className="mt-4"
+                              required
+                            />
+                          </Col>
+
+                          <Col className="mx-auto">
+                            <InputText
+                              name="airline"
+                              placeholder="Airline"
+                              variant="outlined"
+                              type="text"
+                              className="mt-4"
+                              required
+                            />
+
+                            <InputText
+                              name="availableSeats"
+                              placeholder="Available Seats"
+                              variant="outlined"
+                              type="number"
+                              className="mt-4"
+                              required
+                            />
+
+                            <InputText
+                              name="ticketPrice"
+                              placeholder="ticket Price"
+                              variant="outlined"
+                              type="number"
+                              className="mt-4"
+                              required
+                            />
+                          </Col>
+                        </Row>
+                        <label className="mt-3">Departure </label>
                         <InputText
-                          type="text"
-                          name="nom"
-                          placeholder="Nom Hotel"
+                          name="departureDateTime"
                           variant="outlined"
+                          type="date"
                           className="mt-4"
-                        />
-                        <label className="mt-3">Description</label>
-                        <TextareaInput
-                          class="form-control w-100 mt-4"
-                          rows="3"
-                          style={{
-                            overflow: "scroll",
-                            overflowX: "hidden",
-                            overflowY: "scroll",
-                          }}
-                          label="Description  "
-                          type="text"
-                          name="description"
-                          variant="outlined"
-                        />
-
-                        <label className="mt-3">Etoiles</label>
-                        <MultipleSelect
-                          name="etoiles"
-                          label="Nombre etoiles"
-                          options={optionsEtoiles}
                           required
                         />
-
-                        <label className="mt-3">prixParNuit</label>
+                        <label className="mt-3">Arrival </label>
                         <InputText
-                          name="prixParNuit"
+                          name="arrivalDateTime"
                           variant="outlined"
-                          type="number"
+                          type="date"
                           className="mt-4"
                           required
                         />
@@ -571,4 +522,4 @@ const CardTask = ({ id, nom, adresse, description, etoile, prixParNuit }) => {
   );
 };
 
-export default CardTask;
+export default CardFlight;

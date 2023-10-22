@@ -1,28 +1,23 @@
 import React, { useEffect, useState } from "react";
-import { Button, Card, Col, Container } from "react-bootstrap";
-
-//profile-header
 import ProfileHeader from "../../../components/profile-header";
-
-import MultipleSelect from "../../../components/Select";
-
-import { Box, Grid } from "@material-ui/core";
-import { Form, Formik } from "formik";
-import { Stack } from "@mui/material";
-import { Modal } from "react-bootstrap";
-import InputText from "../../../components/InputText";
-import { addTasks, getOwntasks } from "../../../api/tasks";
+import { Button, Container, Modal } from "react-bootstrap";
 import CardTask from "../../../components/card/CardTask";
+import { Form, Formik } from "formik";
+import { addTasks, getOwntasks } from "../../../api/tasks";
 import { taskValidator } from "../../../schemas/tasks.schema";
+import { Grid } from "@material-ui/core";
+import { Box, Stack } from "@mui/material";
+import InputText from "../../../components/InputText";
 import TextareaInput from "../../../components/TextareaInput";
+import MultipleSelect from "../../../components/Select";
+import CardStaff from "../../../components/card/CardStaff";
 
-const ProfileEvents = () => {
+const Staff = () => {
   const initialValues = {
     nom: "",
-    adresse: "",
-    description: "",
-    etoiles: 0,
-    prixParNuit: 0,
+    prenom: "",
+    telephone: "",
+    departement: "",
   };
 
   const [tasks, setTasks] = useState();
@@ -44,7 +39,12 @@ const ProfileEvents = () => {
       return;
     }
   };
-
+  const Departement = [
+    { label: "RECEPTION", value: "RECEPTION" },
+    { label: "NETTOYAGE", value: "NETTOYAGE" },
+    { label: "RESTAURATION", value: "RESTAURATION" },
+    { label: "MAINTENANCE", value: "MAINTENANCE" },
+  ];
   const handleAll = async () => {
     const response = await getOwntasks();
     setTasks(response.data);
@@ -61,86 +61,6 @@ const ProfileEvents = () => {
   useEffect(() => {
     getTasks();
   }, [filterMode, filterCategory]);
-
-  const options = [
-    { label: "react js ", value: "react  js" },
-    { label: "node js ", value: "node  js" },
-    { label: "angular js ", value: "angular  js" },
-    { label: "vue js ", value: "vue  js" },
-    { label: "java ", value: "java" },
-    { label: "python ", value: "python" },
-    { label: "c++ ", value: "c++" },
-    { label: "c# ", value: "c#" },
-    { label: "c ", value: "c" },
-    { label: "php ", value: "php" },
-    { label: "ruby ", value: "ruby" },
-    { label: "swift ", value: "swift" },
-    { label: "kotlin ", value: "kotlin" },
-    { label: "dart ", value: "dart" },
-    { label: "go ", value: "go" },
-    { label: "scala ", value: "scala" },
-    { label: "rust ", value: "rust" },
-    { label: "spring ", value: "spring" },
-    { label: "django ", value: "django" },
-    { label: "laravel ", value: "laravel" },
-    { label: "flask ", value: "flask" },
-    { label: "express ", value: "express" },
-    { label: "spring boot ", value: "spring boot" },
-    { label: "Photoshop ", value: "Photoshop" },
-    { label: "Canva ", value: "Canva" },
-  ];
-
-  const optionsNombre = [
-    { label: "1", value: 1 },
-    { label: "2", value: 2 },
-    { label: "3", value: 3 },
-    { label: "4", value: 4 },
-    { label: "5", value: 5 },
-    { label: "6", value: 6 },
-    { label: "7", value: 7 },
-    { label: "8", value: 8 },
-    { label: "9", value: 9 },
-    { label: "10", value: 10 },
-    { label: "11", value: 11 },
-    { label: "12", value: 12 },
-    { label: "13", value: 13 },
-    { label: "14", value: 14 },
-    { label: "15", value: 15 },
-    { label: "16", value: 16 },
-    { label: "17", value: 17 },
-    { label: "18", value: 18 },
-    { label: "19", value: 19 },
-    { label: "20", value: 20 },
-    { label: "21", value: 21 },
-    { label: "22", value: 22 },
-    { label: "23", value: 23 },
-    { label: "24", value: 24 },
-    { label: "25", value: 25 },
-    { label: "26", value: 26 },
-    { label: "27", value: 27 },
-    { label: "28", value: 28 },
-    { label: "29", value: 29 },
-    { label: "30", value: 30 },
-  ];
-
-  const optionsEtoiles = [
-    { label: "1", value: 1 },
-    { label: "2", value: 2 },
-    { label: "3", value: 3 },
-    { label: "4", value: 4 },
-    { label: "5", value: 5 },
-  ];
-  const optionsMode = [
-    { label: "Local ", value: "local" },
-    { label: "Remote ", value: "remote" },
-  ];
-
-  const optionsCategory = [
-    { label: "FullTime ", value: "fullTime" },
-    { label: "PartTime ", value: "partTime" },
-    { label: "Internship ", value: "internship" },
-  ];
-
   return (
     <>
       <ProfileHeader />
@@ -155,24 +75,23 @@ const ProfileEvents = () => {
             className="d-flex flex-row align-items-center justify-content-between mb-5"
           >
             <h1 className=" " style={{ fontWeight: "bold" }}>
-              Hotels:
+              Staff:
             </h1>
             <div className="d-flex gap-3">
-              <Button onClick={() => handleAll()}>All Hotels</Button>
+              <Button onClick={() => handleAll()}>All Staffs</Button>
 
-              <Button onClick={() => handleShowAdd()}>Add Hotel</Button>
+              <Button onClick={() => handleShowAdd()}>Add Staff</Button>
             </div>
           </div>
           <div className="d-flex flex-row flex-wrap gap-5">
             {tasks &&
               tasks.map((offer) => (
-                <CardTask
+                <CardStaff
                   id={offer._id}
                   nom={offer.nom}
-                  description={offer.description}
-                  adresse={offer.adresse}
-                  etoile={offer.etoile}
-                  prixParNuit={offer.prixParNuit}              
+                  prenom={offer.prenom}
+                  telephone={offer.telephone}
+                  departement={offer.departement}
                 />
               ))}
 
@@ -182,7 +101,7 @@ const ProfileEvents = () => {
               onHide={handleCloseAdd}
             >
               <Modal.Header closeButton>
-                <Modal.Title>Add Hotel</Modal.Title>
+                <Modal.Title>Add Staff</Modal.Title>
               </Modal.Header>
               <Modal.Body>
                 <Formik
@@ -191,7 +110,6 @@ const ProfileEvents = () => {
                     values,
                     { errors, setErrors, setSubmitting }
                   ) => {
-                    console.log(values.value);
                     try {
                       const response = await addTasks(JSON.stringify(values));
                       console.log(response);
@@ -204,12 +122,10 @@ const ProfileEvents = () => {
                   validationSchema={taskValidator}
                 >
                   {({ isSubmitting }) => (
-                    <Grid container component="main" sx={{ height: "100vh" }}>
+                    <Grid container component="main">
                       <Grid item xs={12} sm={8} md={12}>
                         <Box
                           sx={{
-                            my: 8,
-                            mx: 4,
                             display: "flex",
                             flexDirection: "column",
                             alignItems: "center",
@@ -220,7 +136,7 @@ const ProfileEvents = () => {
                             <Stack sx={{ mt: 1 }} spacing={2}>
                               <Box sx={{ mb: 1 }} />
 
-                              <label className="mt-3">Nom Hotel</label>
+                              <label className="mt-3">Nom </label>
                               <InputText
                                 type="text"
                                 name="nom"
@@ -228,35 +144,29 @@ const ProfileEvents = () => {
                                 variant="outlined"
                                 className="mt-4"
                               />
-                              <label className="mt-3">Description</label>
-                              <TextareaInput
-                                class="form-control w-100 mt-4"
-                                rows="3"
-                                style={{
-                                  overflow: "scroll",
-                                  overflowX: "hidden",
-                                  overflowY: "scroll",
-                                }}
-                                label="Description  "
+                              <label className="mt-3">Prenom </label>
+                              <InputText
                                 type="text"
-                                name="description"
+                                name="nom"
+                                placeholder="Nom Hotel"
                                 variant="outlined"
+                                className="mt-4"
                               />
 
-                              <label className="mt-3">Etoiles</label>
-                              <MultipleSelect
-                                name="etoiles"
-                                label="Nombre etoiles"
-                                options={optionsEtoiles}
-                                required
-                              />
-
-                              <label className="mt-3">prixParNuit</label>
+                              <label className="mt-3">
+                                Numéro telephonique
+                              </label>
                               <InputText
                                 name="prixParNuit"
                                 variant="outlined"
-                                type="number"
+                                type="text"
                                 className="mt-4"
+                                required
+                              />
+                              <MultipleSelect
+                                name="Departement"
+                                label="Departement"
+                                options={Departement}
                                 required
                               />
 
@@ -288,4 +198,4 @@ const ProfileEvents = () => {
   );
 };
 
-export default ProfileEvents;
+export default Staff;

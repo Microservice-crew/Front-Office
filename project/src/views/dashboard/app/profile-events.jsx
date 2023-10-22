@@ -21,20 +21,11 @@ import TextareaInput from "../../../components/TextareaInput";
 
 const ProfileEvents = () => {
   const initialValues = {
-
     numeroChambre: 0,
     type: "",
     capacite: 0,
     prixParNuit: 0,
     disponibilite: "",
-
-    name: "",
-    description: "",
-    requirements: [],
-    nombre: 0,
-    category: "",
-    ConditionScore: 0,
-    mode: "",
   };
 
   const [offers, setOffers] = useState();
@@ -138,7 +129,6 @@ const ProfileEvents = () => {
     { label: "SIMPLE", value: "SIMPLE" },
     { label: "DOUBLE", value: "DOUBLE" },
     { label: "SUITE", value: "SUITE" },
-
   ];
 
   return (
@@ -155,7 +145,6 @@ const ProfileEvents = () => {
             className="d-flex flex-row align-items-center justify-content-between mb-5"
           >
             <h1 className=" " style={{ fontWeight: "bold" }}>
-
               Chambres:
             </h1>
             <div className="d-flex gap-3">
@@ -164,7 +153,6 @@ const ProfileEvents = () => {
                 <Dropdown.Toggle variant="success" id="dropdown">
                   {filterCategory === "" || filterCategory === "all"
                     ? "Type Chambre"
-
                     : filterCategory}
                 </Dropdown.Toggle>
 
@@ -177,7 +165,6 @@ const ProfileEvents = () => {
                     }}
                   >
                     SIMPLE
-
                   </Dropdown.Item>
                   <Dropdown.Item
                     onClick={() => {
@@ -186,7 +173,6 @@ const ProfileEvents = () => {
                     }}
                   >
                     DOUBLE
-
                   </Dropdown.Item>
                   <Dropdown.Item
                     onClick={() => {
@@ -196,7 +182,6 @@ const ProfileEvents = () => {
                     }}
                   >
                     SUITE
-
                   </Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
@@ -204,7 +189,6 @@ const ProfileEvents = () => {
               <Dropdown>
                 <Dropdown.Toggle variant="success" id="dropdown-basic">
                   {filterMode === "" || filterMode === "all"
-
                     ? "Disponibilite"
                     : filterMode}
                 </Dropdown.Toggle>
@@ -237,16 +221,11 @@ const ProfileEvents = () => {
               offers.map((offer) => (
                 <CardOffer
                   id={offer._id}
-                  name={offer.name}
-                  description={offer.description}
-                  category={offer.category}
-                  requirements={offer.requirements}
-                  nombre={offer.nombre}
-                  publishedDate={offer.publishedDate}
-                  owner={offer.owner}
-                  mode={offer.mode}
-                  ConditionScore={offer.ConditionScore}
-                  offers={() => getOffers()}
+                  numeroChambre={offer.numeroChambre}
+                  type={offer.type}
+                  capacite={offer.capacite}
+                  prixParNuit={offer.prixParNuit}
+                  disponibilite={offer.disponibilite}
                 />
               ))}
 
@@ -256,7 +235,6 @@ const ProfileEvents = () => {
               onHide={handleCloseAdd}
             >
               <Modal.Header closeButton>
-
                 <Modal.Title>Add Chambre</Modal.Title>
               </Modal.Header>
               <Modal.Body>
@@ -294,7 +272,6 @@ const ProfileEvents = () => {
                           <Form>
                             <Stack sx={{ mt: 1 }} spacing={2}>
                               <Box sx={{ mb: 1 }} />
-
 
                               <label className="mt-3">numero Chambre</label>
                               <InputText

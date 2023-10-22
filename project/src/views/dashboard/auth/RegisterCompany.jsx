@@ -28,10 +28,9 @@ const RegisterCompany = () => {
         try {
           const response = await registerCompany(values);
           console.log(response);
-          if (response.status !== 200) {
-            //email already exists
-            setErrors({ email: "Email already exists" });
-          }
+          // if (response.status !== 200) {
+          //   //email already exists
+          // }
           setSubmitting(false);
         } catch (err) {
           console.log(err);
