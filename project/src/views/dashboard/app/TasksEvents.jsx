@@ -15,6 +15,7 @@ import { addTasks, getOwntasks } from "../../../api/tasks";
 import CardTask from "../../../components/card/CardTask";
 import { taskValidator } from "../../../schemas/tasks.schema";
 import TextareaInput from "../../../components/TextareaInput";
+import { addHotel, getAllHotels, getOneHotel } from "../../../api/hotel";
 
 const ProfileEvents = () => {
   const initialValues = {
@@ -25,7 +26,7 @@ const ProfileEvents = () => {
     prixParNuit: 0,
   };
 
-  const [tasks, setTasks] = useState();
+  const [hotels, setHotels] = useState();
   const [showAdd, setShowAdd] = useState(false);
 
   const [filterMode, setFilterMode] = useState("");
@@ -34,11 +35,11 @@ const ProfileEvents = () => {
   const handleCloseAdd = () => setShowAdd(false);
   const handleShowAdd = () => setShowAdd(true);
 
-  const getTasks = async () => {
+  const getAllHotels = async () => {
     let offerFiltered;
     try {
-      const response = await getOwntasks();
-      setTasks(offerFiltered);
+      const response = await getAllHotels();
+      setHotels(response);
     } catch (e) {
       console.log(e);
       return;
@@ -46,8 +47,8 @@ const ProfileEvents = () => {
   };
 
   const handleAll = async () => {
-    const response = await getOwntasks();
-    setTasks(response.data);
+    const response = await getAllHotels();
+    setHotels(response);
   };
 
   const handleFilterMode = (mode) => {
@@ -59,7 +60,7 @@ const ProfileEvents = () => {
   };
 
   useEffect(() => {
-    getTasks();
+    getAllHotels();
   }, [filterMode, filterCategory]);
 
   const options = [
@@ -164,15 +165,15 @@ const ProfileEvents = () => {
             </div>
           </div>
           <div className="d-flex flex-row flex-wrap gap-5">
-            {tasks &&
-              tasks.map((offer) => (
+            {hotels &&
+              hotels.map((offer) => (
                 <CardTask
                   id={offer._id}
                   nom={offer.nom}
                   description={offer.description}
                   adresse={offer.adresse}
                   etoile={offer.etoile}
-                  prixParNuit={offer.prixParNuit}              
+                  prixParNuit={offer.prixParNuit}
                 />
               ))}
 
@@ -193,15 +194,14 @@ const ProfileEvents = () => {
                   ) => {
                     console.log(values.value);
                     try {
-                      const response = await addTasks(JSON.stringify(values));
+                      const response = await addHotel(JSON.stringify(values));
                       console.log(response);
                       handleCloseAdd();
-                      getTasks();
+                      getAllHotels();
                     } catch (err) {
                       console.log(err);
                     }
                   }}
-                  validationSchema={taskValidator}
                 >
                   {({ isSubmitting }) => (
                     <Grid container component="main" sx={{ height: "100vh" }}>
@@ -228,6 +228,14 @@ const ProfileEvents = () => {
                                 variant="outlined"
                                 className="mt-4"
                               />
+                              <label className="mt-3">Adresse Hotel</label>
+                              <InputText
+                                type="text"
+                                name="adresse"
+                                placeholder="Nom Hotel"
+                                variant="outlined"
+                                className="mt-4"
+                              />
                               <label className="mt-3">Description</label>
                               <TextareaInput
                                 class="form-control w-100 mt-4"
@@ -246,6 +254,7 @@ const ProfileEvents = () => {
                               <label className="mt-3">Etoiles</label>
                               <MultipleSelect
                                 name="etoiles"
+                                type="number"
                                 label="Nombre etoiles"
                                 options={optionsEtoiles}
                                 required
