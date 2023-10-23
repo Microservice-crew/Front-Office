@@ -2,6 +2,7 @@ import React from "react";
 
 //pages
 import Groups from "../views/dashboard/app/groups";
+import Staff from "../views/dashboard/app/Staff";
 import GroupDetail from "../views/dashboard/app/group-detail";
 import FriendList from "../views/dashboard/app/friend-list";
 import ProfileImages from "../views/dashboard/app/profile-images";
@@ -28,6 +29,10 @@ export const Layout1Router = [
   {
     path: "dashboards/app/groups",
     element: <Groups />,
+  },
+  {
+    path: "dashboards/app/staff",
+    element: <Staff />,
   },
   {
     path: "dashboards/app/group-detail",

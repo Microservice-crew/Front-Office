@@ -1,22 +1,14 @@
 import React, { useEffect, useState } from "react";
 import "./cardOffer.css";
-import { Button, Col, Dropdown, Modal, Row, Table } from "react-bootstrap";
+import { Button, Col, Dropdown, Modal, Row } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import InputText from "../InputText";
 import { Box, Grid } from "@material-ui/core";
 import { Form, Formik } from "formik";
 import { Stack } from "@mui/material";
 import { addOfferSchema } from "../../schemas/offer.shema";
-import {
-  applyOffer,
-  deleteOffer,
-  editOffer,
-  getOwnOffers,
-  unApplyOffer,
-} from "../../api/offer";
 import MultipleSelect from "../Select";
-import TextareaInput from "../TextareaInput";
-
+import { deleteFlight } from "../../api/flight";
 function Popup(props) {
   return (
     <div className="popup">
@@ -27,25 +19,26 @@ function Popup(props) {
     </div>
   );
 }
-
-const CardOffer = ({
+const CardFlight = ({
   id,
-  numeroChambre,
-  type,
-  capacite,
-  prixParNuit,
-  disponibilite,
+  flightNumber,
+  departureCity,
+  arrivalDateTime,
+  departureDateTime,
+  arrivalCity,
+  airline,
+  availableSeat,
+  ticketPrice,
 }) => {
-  // const date = new Date(publishedDate);
-  const options = { day: "numeric", month: "long" };
-  // const formattedDate = date.toLocaleDateString("en-US", options);
-
   const initialValues = {
-    numeroChambre,
-    type,
-    capacite,
-    prixParNuit,
-    disponibilite,
+    flightNumber,
+    departureCity,
+    arrivalDateTime,
+    departureDateTime,
+    arrivalCity,
+    airline,
+    availableSeat,
+    ticketPrice,
   };
 
   const [margin, setMargin] = useState(false);
@@ -105,8 +98,10 @@ const CardOffer = ({
   };
 
   const handleDelete = async (id) => {
-    const response = await deleteOffer(id);
-    // offers();
+     const response = await deleteFlight(id);
+     
+     console.log(id)
+    
   };
 
   const navigate = useNavigate();
@@ -189,7 +184,12 @@ const CardOffer = ({
     { label: "29", value: 29 },
     { label: "30", value: 30 },
   ];
-
+  const Departement = [
+    { label: "RECEPTION", value: "RECEPTION" },
+    { label: "NETTOYAGE", value: "NETTOYAGE" },
+    { label: "RESTAURATION", value: "RESTAURATION" },
+    { label: "MAINTENANCE", value: "MAINTENANCE" },
+  ];
   const optionsMode = [
     { label: "TRUE ", value: "TRUE" },
     { label: "False ", value: "FALSE" },
@@ -200,7 +200,6 @@ const CardOffer = ({
     { label: "DOUBLE ", value: "DOUBLE" },
     { label: "SUITE ", value: "SUITE" },
   ];
-
   return (
     <div
       className="card"
@@ -215,10 +214,10 @@ const CardOffer = ({
         <div className="d-flex justify-content-between align-items-center">
           <div className="d-flex justify-content-around align-items-center gap-5">
             <h5 className="card-title" style={{ fontWeight: "bold" }}>
-              {numeroChambre} ⭐
+              {flightNumber} ⭐
             </h5>
           </div>
-          <h6 className="card-subtitle mb-2 text-body-secondary">{type}</h6>
+          <h6 className="card-subtitle mb-2 text-body-secondary">{airline}</h6>
           {user && user.role !== "user" && user.role !== "expert" && (
             <Dropdown>
               <Link to="#">
@@ -251,44 +250,36 @@ const CardOffer = ({
 
         <div className="text-truncate-container">
           <Col className="d-flex w-100 justify-content-evenly ">
-            <h4>numero Chambre</h4>
-            <h4>{numeroChambre}</h4>
+            <h4>departure City</h4>
+            <h4>{departureCity}</h4>
           </Col>
           <Col className="d-flex w-100 justify-content-evenly">
-            <h4>capacite</h4>
-            <h4>{capacite}</h4>
+            <h4>arrival Date</h4>
+            <h4>{arrivalDateTime}</h4>
           </Col>
 
           <Col className="d-flex w-100 justify-content-evenly">
-            <h4>prix Par Nuit</h4>
-            <h4>{prixParNuit}</h4>
+            <h4>ticket Price</h4>
+            <h4>{ticketPrice}</h4>
           </Col>
         </div>
         <Col className="d-flex w-100 justify-content-evenly">
-          <h4 className="mt-2">Type Chambre:</h4>
+          <h4 className="mt-2">Airline:</h4>
           <span
             style={{ fontSize: "14px" }}
-            className={`badge badge-pill  p-2 mt-1  mx-3 ${
-              type === "SIMPLE"
-                ? "SIMPLE"
-                : type === "DOUBLE"
-                ? "DOUBLE"
-                : "SUITE"
-            }`}
+            className={`badge badge-pill  p-2 mt-1  mx-3 `}
           >
-            {type}
+            {airline}
           </span>
         </Col>
 
         <Col className="d-flex w-100 justify-content-evenly">
-          <h4 className="mt-1">disponibilite:</h4>
+          <h4 className="mt-1">Available seat:</h4>
           <span
             style={{ fontSize: "14px" }}
-            className={`badge badge-pill   p-2 mt-1 mx-3 ${
-              disponibilite ? "partTime" : "internship"
-            }`}
+            className={`badge badge-pill   p-2 mt-1 mx-3 `}
           >
-            {disponibilite ? "Disponible" : "reserved"}
+            {availableSeat}
           </span>
         </Col>
         <div className="card-footer d-flex justify-content-center gap-5">
@@ -339,17 +330,25 @@ const CardOffer = ({
         onHide={handleCloseDetails}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Chambre Details</Modal.Title>
+          <Modal.Title>Flight Details</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <h2 className="text-center">{numeroChambre}</h2>
+          <h2 className="text-center">{flightNumber}</h2>
 
           <Col className="d-flex w-100 justify-content-evenly">
-            <h4>capacite</h4>
-            <h4>{capacite}</h4>
+            <h4>departure Date Time</h4>
+            <h4>{departureDateTime}</h4>
           </Col>
-          <h4 className="my-3">Prix Par Nuit:</h4>
-          <h5>{prixParNuit}</h5>
+          <h4 className="my-3">arrival Date Time:</h4>
+          <h5>{arrivalDateTime}</h5>
+          <h4 className="my-3">airline:</h4>
+          <h5>{airline}</h5>
+          <h4 className="my-3">arrival City:</h4>
+          <h5>{arrivalCity}</h5>
+          <h4 className="my-3">available Seat:</h4>
+          <h5>{availableSeat}</h5>
+          <h4 className="my-3">ticket Price:</h4>
+          <h5>{ticketPrice}</h5>
         </Modal.Body>
 
         <Modal.Footer>
@@ -361,9 +360,9 @@ const CardOffer = ({
 
       <Modal style={{ marginTop: "10rem" }} show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Delete Chambre : {` ${numeroChambre}`}</Modal.Title>
+          <Modal.Title>Delete Flight : {` ${flightNumber}`}</Modal.Title>
         </Modal.Header>
-        <Modal.Body>Are you sure you want to delete this chambre ?</Modal.Body>
+        <Modal.Body>Are you sure you want to delete this Flight ?</Modal.Body>
 
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
@@ -376,44 +375,25 @@ const CardOffer = ({
       </Modal>
 
       <Modal
-        style={{ marginTop: "10rem" }}
-        show={showApplied}
-        onHide={handleCloseApplied}
-      >
-        <Modal.Header closeButton>
-          <Modal.Title>Congratulation</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <h5>You have applied to</h5> <h3> {numeroChambre}</h3>
-        </Modal.Body>
-
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseApplied}>
-            Close
-          </Button>
-        </Modal.Footer>
-      </Modal>
-
-      <Modal
         style={{ marginTop: "5rem" }}
         show={showEdit}
         onHide={handleCloseEdit}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Edit Chambre : {` ${numeroChambre}`}</Modal.Title>
+          <Modal.Title>Edit Flight : {` ${flightNumber}`}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <p>Are you sure you want to Update this Chambre ?</p>
+          <p>Are you sure you want to Update this Flight ?</p>
 
           <Formik
             initialValues={initialValues}
             onSubmit={async (values, { errors, setErrors, setSubmitting }) => {
               console.log(values);
               try {
-                const response = await editOffer(id, values);
+                // const response = await editOffer(id, values);
                 handleCloseEdit();
                 // offers();
-                console.log(response);
+                // console.log(response);
               } catch (err) {
                 console.log(err);
               }
@@ -436,54 +416,80 @@ const CardOffer = ({
                     <Form>
                       <Stack sx={{ mt: 1 }} spacing={2}>
                         <Box sx={{ mb: 1 }} />
-
-                        <InputText
-                          type="number"
-                          name="numeroChambre"
-                          placeholder="numeroChambre"
-                          variant="outlined"
-                          className="mt-4"
-                        />
-
-                        <MultipleSelect
-                          name="requirements"
-                          label="Requirements"
-                          options={options1}
-                          multiple
-                          className="mx-auto w-100"
-                        />
-                        <Row className="justify-content-evenly w-100">
-                          <Col className="d-flex mx-auto justify-content-between w-100">
-                            <MultipleSelect
-                              name="category"
-                              label="Category"
-                              options={optionsCategory}
-                            />
-                            <MultipleSelect
-                              name="disponibilite"
-                              label="disponibilite"
-                              options={optionsMode}
-                            />
-                          </Col>
-                        </Row>
-                        <Row>
-                          <Col>
-                            <MultipleSelect
-                              name="type"
-                              label="type"
-                              options={optionsNombre}
-                            />
-                          </Col>
-                          <Col>
+                        <Row className="w-100  mx-auto">
+                          <Col className="mx-auto">
                             <InputText
-                              type="number"
-                              name="prixParNuit"
-                              placeholder="Prix Par Nuit"
+                              type="text"
+                              name="flightNumber"
+                              placeholder="flight Number"
                               variant="outlined"
                               className="mt-4"
                             />
+
+                            <InputText
+                              name="departureCity"
+                              variant="outlined"
+                              placeholder="Departure City"
+                              type="text"
+                              className="mt-4"
+                              required
+                            />
+
+                            <InputText
+                              name="arrivalCity"
+                              variant="outlined"
+                              placeholder="Arrival City"
+                              type="text"
+                              className="mt-4"
+                              required
+                            />
+                          </Col>
+
+                          <Col className="mx-auto">
+                            <InputText
+                              name="airline"
+                              placeholder="Airline"
+                              variant="outlined"
+                              type="text"
+                              className="mt-4"
+                              required
+                            />
+
+                            <InputText
+                              name="availableSeats"
+                              placeholder="Available Seats"
+                              variant="outlined"
+                              type="number"
+                              className="mt-4"
+                              required
+                            />
+
+                            <InputText
+                              name="ticketPrice"
+                              placeholder="ticket Price"
+                              variant="outlined"
+                              type="number"
+                              className="mt-4"
+                              required
+                            />
                           </Col>
                         </Row>
+                        <label className="mt-3">Departure </label>
+                        <InputText
+                          name="departureDateTime"
+                          variant="outlined"
+                          type="date"
+                          className="mt-4"
+                          required
+                        />
+                        <label className="mt-3">Arrival </label>
+                        <InputText
+                          name="arrivalDateTime"
+                          variant="outlined"
+                          type="date"
+                          className="mt-4"
+                          required
+                        />
 
                         <Button
                           fullWidth
@@ -519,4 +525,4 @@ const CardOffer = ({
   );
 };
 
-export default CardOffer;
+export default CardFlight;
