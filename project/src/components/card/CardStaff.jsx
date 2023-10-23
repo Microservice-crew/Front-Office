@@ -107,82 +107,13 @@ const CardStaff = ({ id, nom, prenom, telephone, departement }) => {
     // offers();
   };
 
-  const options1 = [
-    { label: "react js ", value: "react  js" },
-    { label: "node js ", value: "node  js" },
-    { label: "angular js ", value: "angular  js" },
-    { label: "vue js ", value: "vue  js" },
-    { label: "java ", value: "java" },
-    { label: "python ", value: "python" },
-    { label: "c++ ", value: "c++" },
-    { label: "c# ", value: "c#" },
-    { label: "c ", value: "c" },
-    { label: "php ", value: "php" },
-    { label: "ruby ", value: "ruby" },
-    { label: "swift ", value: "swift" },
-    { label: "kotlin ", value: "kotlin" },
-    { label: "dart ", value: "dart" },
-    { label: "go ", value: "go" },
-    { label: "scala ", value: "scala" },
-    { label: "rust ", value: "rust" },
-    { label: "spring ", value: "spring" },
-    { label: "django ", value: "django" },
-    { label: "laravel ", value: "laravel" },
-    { label: "flask ", value: "flask" },
-    { label: "express ", value: "express" },
-    { label: "spring boot ", value: "spring boot" },
-    { label: "Photoshop ", value: "Photoshop" },
-    { label: "Canva ", value: "Canva" },
-  ];
-
-  const optionsNombre = [
-    { label: "1", value: 1 },
-    { label: "2", value: 2 },
-    { label: "3", value: 3 },
-    { label: "4", value: 4 },
-    { label: "5", value: 5 },
-    { label: "6", value: 6 },
-    { label: "7", value: 7 },
-    { label: "8", value: 8 },
-    { label: "9", value: 9 },
-    { label: "10", value: 10 },
-    { label: "11", value: 11 },
-    { label: "12", value: 12 },
-    { label: "13", value: 13 },
-    { label: "14", value: 14 },
-    { label: "15", value: 15 },
-    { label: "16", value: 16 },
-    { label: "17", value: 17 },
-    { label: "18", value: 18 },
-    { label: "19", value: 19 },
-    { label: "20", value: 20 },
-    { label: "21", value: 21 },
-    { label: "22", value: 22 },
-    { label: "23", value: 23 },
-    { label: "24", value: 24 },
-    { label: "25", value: 25 },
-    { label: "26", value: 26 },
-    { label: "27", value: 27 },
-    { label: "28", value: 28 },
-    { label: "29", value: 29 },
-    { label: "30", value: 30 },
-  ];
   const Departement = [
     { label: "RECEPTION", value: "RECEPTION" },
     { label: "NETTOYAGE", value: "NETTOYAGE" },
     { label: "RESTAURATION", value: "RESTAURATION" },
     { label: "MAINTENANCE", value: "MAINTENANCE" },
   ];
-  const optionsMode = [
-    { label: "TRUE ", value: "TRUE" },
-    { label: "False ", value: "FALSE" },
-  ];
 
-  const optionsCategory = [
-    { label: "SIMPLE ", value: "SIMPLE" },
-    { label: "DOUBLE ", value: "DOUBLE" },
-    { label: "SUITE ", value: "SUITE" },
-  ];
   return (
     <div
       className="card"
@@ -202,6 +133,9 @@ const CardStaff = ({ id, nom, prenom, telephone, departement }) => {
           </div>
           <h6 className="card-subtitle mb-2 text-body-secondary">
             {departement}
+          </h6>
+          <h6 className="card-subtitle mb-2 text-body-secondary">
+            {telephone}
           </h6>
           {user && user.role !== "user" && user.role !== "expert" && (
             <Dropdown>
@@ -236,12 +170,9 @@ const CardStaff = ({ id, nom, prenom, telephone, departement }) => {
         <div className="text-truncate-container">
           <Col className="d-flex w-100 justify-content-evenly ">
             <h4>numero Chambre</h4>
-            <h4>{{ telephone }}</h4>
           </Col>
         </div>
-      
 
-      
         <div className="card-footer d-flex justify-content-center gap-5">
           {user && user.role === "company" ? (
             <button
@@ -325,7 +256,6 @@ const CardStaff = ({ id, nom, prenom, telephone, departement }) => {
           </Button>
         </Modal.Footer>
       </Modal>
-
 
       <Modal
         style={{ marginTop: "5rem" }}

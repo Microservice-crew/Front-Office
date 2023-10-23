@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import ProfileHeader from "../../../components/profile-header";
-import CardTask from "../../../components/card/CardTask";
-import { taskValidator } from "../../../schemas/tasks.schema";
 
 import { Button, Col, Container, Row } from "react-bootstrap";
 

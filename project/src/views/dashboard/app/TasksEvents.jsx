@@ -11,11 +11,9 @@ import { Form, Formik } from "formik";
 import { Stack } from "@mui/material";
 import { Modal } from "react-bootstrap";
 import InputText from "../../../components/InputText";
-import { addTasks, getOwntasks } from "../../../api/tasks";
 import CardTask from "../../../components/card/CardTask";
-import { taskValidator } from "../../../schemas/tasks.schema";
 import TextareaInput from "../../../components/TextareaInput";
-import { addHotel ,getAllHotels} from "../../../api/hotel";
+import { addHotel, getAllHotels } from "../../../api/hotel";
 
 const ProfileEvents = () => {
   const initialValues = {
@@ -35,7 +33,7 @@ const ProfileEvents = () => {
   const handleCloseAdd = () => setShowAdd(false);
   const handleShowAdd = () => setShowAdd(true);
 
-const getAllHotel = async () => {
+  const getAllHotel = async () => {
     let offerFiltered;
     try {
       const response = await getAllHotels();
@@ -51,15 +49,9 @@ const getAllHotel = async () => {
     setHotels(response.data);
   };
 
-
-
   useEffect(() => {
     getAllHotel();
   }, [filterMode, filterCategory]);
-
- 
-
-
 
   const optionsEtoiles = [
     { label: "1", value: 1 },
@@ -68,7 +60,6 @@ const getAllHotel = async () => {
     { label: "4", value: 4 },
     { label: "5", value: 5 },
   ];
-
 
   return (
     <>
@@ -160,7 +151,7 @@ const getAllHotel = async () => {
                               <InputText
                                 type="text"
                                 name="adresse"
-                                placeholder="Nom Hotel"
+                                placeholder="Adresse Hotel"
                                 variant="outlined"
                                 className="mt-4"
                               />
