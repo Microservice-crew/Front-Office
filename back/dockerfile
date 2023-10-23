@@ -17,4 +17,5 @@ COPY . .
 EXPOSE 9000
 
 # Define the command to start your Node.js app
+
 CMD [ "node", "app.js" ]
