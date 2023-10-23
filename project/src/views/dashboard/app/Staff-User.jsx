@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { Card, Col, Container } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Col, Container } from "react-bootstrap";
 
 //profile-header
 
-import CardTask from "../../components/card/CardTask";
-import ProfileHeader from "../../components/profile-header";
-import { getAlltasks } from "../../api/tasks";
+import CardTask from "../../../components/card/CardTask";
+import ProfileHeader from "../../../components/profile-header";
+import { getAlltasks } from "../../../api/tasks";
+import CardStaff from "../../../components/card/CardStaff";
 // import img58 from "../../../assets/images/page-img/58.jpg";
 // import img57 from "../../../assets/images/page-img/57.jpg";
 // import img59 from "../../../assets/images/page-img/59.jpg";
 // import img6 from "../../../assets/images/page-img/profile-bg6.jpg";
 
-const CompanyTasks = () => {
+const StaffUser = () => {
   const [offers, setOffers] = useState();
 
   const [filterMode, setFilterMode] = useState("");
@@ -86,24 +86,18 @@ const CompanyTasks = () => {
       >
         <Container className="mx-5">
           <h1 className=" mb-5" style={{ fontWeight: "bold" }}>
-            Hotels:
+            Staffs:
           </h1>
           <div className="d-flex flex-row flex-wrap gap-5">
             {offers &&
               offers.map((offer, index) => (
-                <CardTask
+                <CardStaff
                   key={index}
                   id={offer._id}
-                  name={offer.name}
-                  description={offer.description}
-                  requirements={offer.requirements}
-                  nombre={offer.nombre}
-                  publishedDate={offer.publishedDate}
-                  owner={offer.owner}
-                  ExpireDate={offer.ExpireDate}
-                  appliers={offer.appliers}
-                  maxAppliers={offer.appliers.length}
-                  offers={() => getOffers()}
+                  nom={offer.nom}
+                  prenom={offer.prenom}
+                  telephone={offer.telephone}
+                  departement={offer.departement}
                 />
               ))}
           </div>
@@ -115,4 +109,4 @@ const CompanyTasks = () => {
   );
 };
 
-export default CompanyTasks;
+export default StaffUser;

@@ -21,13 +21,11 @@ import TextareaInput from "../../../components/TextareaInput";
 
 const ProfileEvents = () => {
   const initialValues = {
-    name: "",
-    description: "",
-    requirements: [],
-    nombre: 0,
-    category: "",
-    ConditionScore: 0,
-    mode: "",
+    numeroChambre: 0,
+    type: "",
+    capacite: 0,
+    prixParNuit: 0,
+    disponibilite: "",
   };
 
   const [offers, setOffers] = useState();
@@ -120,37 +118,17 @@ const ProfileEvents = () => {
     { label: "8", value: 8 },
     { label: "9", value: 9 },
     { label: "10", value: 10 },
-    { label: "11", value: 11 },
-    { label: "12", value: 12 },
-    { label: "13", value: 13 },
-    { label: "14", value: 14 },
-    { label: "15", value: 15 },
-    { label: "16", value: 16 },
-    { label: "17", value: 17 },
-    { label: "18", value: 18 },
-    { label: "19", value: 19 },
-    { label: "20", value: 20 },
-    { label: "21", value: 21 },
-    { label: "22", value: 22 },
-    { label: "23", value: 23 },
-    { label: "24", value: 24 },
-    { label: "25", value: 25 },
-    { label: "26", value: 26 },
-    { label: "27", value: 27 },
-    { label: "28", value: 28 },
-    { label: "29", value: 29 },
-    { label: "30", value: 30 },
   ];
 
   const optionsMode = [
-    { label: "Local ", value: "local" },
-    { label: "Remote ", value: "remote" },
+    { label: "TRUE ", value: "TRUE" },
+    { label: "FALSE", value: "FALSE" },
   ];
 
   const optionsCategory = [
-    { label: "FullTime ", value: "fullTime" },
-    { label: "PartTime ", value: "partTime" },
-    { label: "Internship ", value: "internship" },
+    { label: "SIMPLE", value: "SIMPLE" },
+    { label: "DOUBLE", value: "DOUBLE" },
+    { label: "SUITE", value: "SUITE" },
   ];
 
   return (
@@ -167,14 +145,14 @@ const ProfileEvents = () => {
             className="d-flex flex-row align-items-center justify-content-between mb-5"
           >
             <h1 className=" " style={{ fontWeight: "bold" }}>
-              Job Offers:
+              Chambres:
             </h1>
             <div className="d-flex gap-3">
-              <Button onClick={() => handleAll()}>All Offers</Button>
+              <Button onClick={() => handleAll()}>All Chambres</Button>
               <Dropdown>
                 <Dropdown.Toggle variant="success" id="dropdown">
                   {filterCategory === "" || filterCategory === "all"
-                    ? "Category"
+                    ? "Type Chambre"
                     : filterCategory}
                 </Dropdown.Toggle>
 
@@ -182,26 +160,28 @@ const ProfileEvents = () => {
                   <Dropdown.Item
                     onClick={() => {
                       handleFilterMode("");
-                      handleFilterCategory("fullTime");
+
+                      handleFilterCategory("SIMPLE");
                     }}
                   >
-                    FullTime
+                    SIMPLE
                   </Dropdown.Item>
                   <Dropdown.Item
                     onClick={() => {
                       handleFilterMode("");
-                      handleFilterCategory("partTime");
+                      handleFilterCategory("DOUBLE");
                     }}
                   >
-                    PartTime
+                    DOUBLE
                   </Dropdown.Item>
                   <Dropdown.Item
                     onClick={() => {
                       handleFilterMode("");
-                      handleFilterCategory("internship");
+
+                      handleFilterCategory("SUITE");
                     }}
                   >
-                    Internship
+                    SUITE
                   </Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
@@ -209,7 +189,7 @@ const ProfileEvents = () => {
               <Dropdown>
                 <Dropdown.Toggle variant="success" id="dropdown-basic">
                   {filterMode === "" || filterMode === "all"
-                    ? "Mode"
+                    ? "Disponibilite"
                     : filterMode}
                 </Dropdown.Toggle>
 
@@ -217,22 +197,23 @@ const ProfileEvents = () => {
                   <Dropdown.Item
                     onClick={() => {
                       handleFilterCategory("");
-                      handleFilterMode("local");
+                      handleFilterMode("TRUE");
                     }}
                   >
-                    Local
+                    TRUE
                   </Dropdown.Item>
                   <Dropdown.Item
                     onClick={() => {
                       handleFilterCategory("");
-                      handleFilterMode("remote");
+
+                      handleFilterMode("FALSE");
                     }}
                   >
-                    Remote
+                    FALSE
                   </Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
-              <Button onClick={() => handleShowAdd()}>Add Offer</Button>
+              <Button onClick={() => handleShowAdd()}>Add Chambre</Button>
             </div>
           </div>
           <div className="d-flex flex-row flex-wrap gap-5">
@@ -240,16 +221,11 @@ const ProfileEvents = () => {
               offers.map((offer) => (
                 <CardOffer
                   id={offer._id}
-                  name={offer.name}
-                  description={offer.description}
-                  category={offer.category}
-                  requirements={offer.requirements}
-                  nombre={offer.nombre}
-                  publishedDate={offer.publishedDate}
-                  owner={offer.owner}
-                  mode={offer.mode}
-                  ConditionScore={offer.ConditionScore}
-                  offers={() => getOffers()}
+                  numeroChambre={offer.numeroChambre}
+                  type={offer.type}
+                  capacite={offer.capacite}
+                  prixParNuit={offer.prixParNuit}
+                  disponibilite={offer.disponibilite}
                 />
               ))}
 
@@ -259,7 +235,7 @@ const ProfileEvents = () => {
               onHide={handleCloseAdd}
             >
               <Modal.Header closeButton>
-                <Modal.Title>Add Offer</Modal.Title>
+                <Modal.Title>Add Chambre</Modal.Title>
               </Modal.Header>
               <Modal.Body>
                 <Formik
@@ -297,72 +273,50 @@ const ProfileEvents = () => {
                             <Stack sx={{ mt: 1 }} spacing={2}>
                               <Box sx={{ mb: 1 }} />
 
-                              <label className="mt-3">Title</label>
+                              <label className="mt-3">numero Chambre</label>
                               <InputText
                                 type="text"
-                                name="name"
-                                placeholder="Title"
+                                name="numeroChambre"
+                                placeholder="numero Chambre"
                                 variant="outlined"
                                 className="mt-4"
                               />
-                              <label className="mt-3">Description</label>
-                              <TextareaInput
-                                className="form-control w-100 mt-4"
-                                rows="3"
-                                style={{
-                                  overflow: "scroll",
-                                  overflowX: "hidden",
-                                  overflowY: "scroll",
-                                }}
-                                label="Description  "
-                                type="text"
-                                name="description"
-                                variant="outlined"
-                              />
-                              <Row>
+                              <Row className="d-flex w-100  mx-auto">
                                 <Col className="mx-auto">
                                   <MultipleSelect
-                                    name="requirements"
-                                    label="Requirements"
-                                    options={options}
+                                    name="type"
+                                    label="Type Chambre"
+                                    options={optionsCategory}
                                     required
-                                    multiple
                                   />
                                 </Col>
+                                <Col xs={6} className="mx-auto">
+                                  <MultipleSelect
+                                    name="disponibilite"
+                                    label="Disponibilite"
+                                    options={optionsMode}
+                                    required
+                                  />
+                                </Col>
+                              </Row>
+
+                              <Row>
                                 <Row className="d-flex w-100 justify-content-evenly">
                                   <Col xs={6} className="mx-auto">
                                     <MultipleSelect
-                                      name="nombre"
-                                      label="Nombre Condidat"
+                                      name="capacite"
+                                      label="capacite"
                                       options={optionsNombre}
                                       required
                                     />
                                   </Col>
                                   <Col xs={6} className="mx-auto">
                                     <InputText
-                                      name="ConditionScore"
-                                      label="Condition Score"
+                                      name="prixParNuit"
+                                      label="prixParNuit"
                                       variant="outlined"
                                       type="number"
                                       className="mt-4"
-                                      required
-                                    />
-                                  </Col>
-                                </Row>
-                                <Row className="d-flex w-100  mx-auto">
-                                  <Col className="mx-auto">
-                                    <MultipleSelect
-                                      name="category"
-                                      label="Category"
-                                      options={optionsCategory}
-                                      required
-                                    />
-                                  </Col>
-                                  <Col xs={6} className="mx-auto">
-                                    <MultipleSelect
-                                      name="mode"
-                                      label="Mode"
-                                      options={optionsMode}
                                       required
                                     />
                                   </Col>

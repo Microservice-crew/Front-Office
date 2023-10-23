@@ -244,26 +244,6 @@ const TasksAppliers = ({ data, pageSize, role, confirm }) => {
           </Table>
           <div>{renderPagination()}</div>
         </Col>
-        <Col xs="2">
-          <Card className="d-flex align-items-center justify-content-center bg-success text-center w-100 h-30">
-            <Card.Header>
-              <Card.Title>
-                <h3>Index</h3>
-              </Card.Title>
-            </Card.Header>
-            <Card.Body>
-              <h5>ever rank here to give high score to your appliers</h5>
-              <h6>nomber of days working X rank value</h6>
-              <ul>
-                <li>A = 100</li>
-                <li>B = 75 </li>
-                <li>C = 50 </li>
-                <li>D = 25 </li>
-                <li>E = 10 </li>
-              </ul>
-            </Card.Body>
-          </Card>
-        </Col>
       </Row>
     </Container>
   );

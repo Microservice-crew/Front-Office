@@ -15,17 +15,18 @@ import { addTasks, getOwntasks } from "../../../api/tasks";
 import CardTask from "../../../components/card/CardTask";
 import { taskValidator } from "../../../schemas/tasks.schema";
 import TextareaInput from "../../../components/TextareaInput";
+import { addHotel, getAllHotels, getOneHotel } from "../../../api/hotel";
 
 const ProfileEvents = () => {
   const initialValues = {
-    name: "",
+    nom: "",
+    adresse: "",
     description: "",
-    requirements: [],
-    nombre: 0,
-    ExpireDate: "",
+    etoiles: 0,
+    prixParNuit: 0,
   };
 
-  const [tasks, setTasks] = useState();
+  const [hotels, setHotels] = useState();
   const [showAdd, setShowAdd] = useState(false);
 
   const [filterMode, setFilterMode] = useState("");
@@ -34,11 +35,11 @@ const ProfileEvents = () => {
   const handleCloseAdd = () => setShowAdd(false);
   const handleShowAdd = () => setShowAdd(true);
 
-  const getTasks = async () => {
+  const getAllHotels = async () => {
     let offerFiltered;
     try {
-      const response = await getOwntasks();
-      setTasks(offerFiltered);
+      const response = await getAllHotels();
+      setHotels(response);
     } catch (e) {
       console.log(e);
       return;
@@ -46,8 +47,8 @@ const ProfileEvents = () => {
   };
 
   const handleAll = async () => {
-    const response = await getOwntasks();
-    setTasks(response.data);
+    const response = await getAllHotels();
+    setHotels(response);
   };
 
   const handleFilterMode = (mode) => {
@@ -59,7 +60,7 @@ const ProfileEvents = () => {
   };
 
   useEffect(() => {
-    getTasks();
+    getAllHotels();
   }, [filterMode, filterCategory]);
 
   const options = [
@@ -123,6 +124,13 @@ const ProfileEvents = () => {
     { label: "30", value: 30 },
   ];
 
+  const optionsEtoiles = [
+    { label: "1", value: 1 },
+    { label: "2", value: 2 },
+    { label: "3", value: 3 },
+    { label: "4", value: 4 },
+    { label: "5", value: 5 },
+  ];
   const optionsMode = [
     { label: "Local ", value: "local" },
     { label: "Remote ", value: "remote" },
@@ -148,27 +156,24 @@ const ProfileEvents = () => {
             className="d-flex flex-row align-items-center justify-content-between mb-5"
           >
             <h1 className=" " style={{ fontWeight: "bold" }}>
-              Task Offers:
+              Hotels:
             </h1>
             <div className="d-flex gap-3">
-              <Button onClick={() => handleAll()}>All Tasks</Button>
+              <Button onClick={() => handleAll()}>All Hotels</Button>
 
-              <Button onClick={() => handleShowAdd()}>Add Task</Button>
+              <Button onClick={() => handleShowAdd()}>Add Hotel</Button>
             </div>
           </div>
           <div className="d-flex flex-row flex-wrap gap-5">
-            {tasks &&
-              tasks.map((offer) => (
+            {hotels &&
+              hotels.map((offer) => (
                 <CardTask
                   id={offer._id}
-                  name={offer.name}
+                  nom={offer.nom}
                   description={offer.description}
-                  ExpireDate={offer.ExpireDate}
-                  requirements={offer.requirements}
-                  nombre={offer.nombre}
-                  publishedDate={offer.publishedDate}
-                  owner={offer.owner}
-                  offers={() => getTasks()}
+                  adresse={offer.adresse}
+                  etoile={offer.etoile}
+                  prixParNuit={offer.prixParNuit}
                 />
               ))}
 
@@ -178,7 +183,7 @@ const ProfileEvents = () => {
               onHide={handleCloseAdd}
             >
               <Modal.Header closeButton>
-                <Modal.Title>Add Task</Modal.Title>
+                <Modal.Title>Add Hotel</Modal.Title>
               </Modal.Header>
               <Modal.Body>
                 <Formik
@@ -189,15 +194,14 @@ const ProfileEvents = () => {
                   ) => {
                     console.log(values.value);
                     try {
-                      const response = await addTasks(JSON.stringify(values));
+                      const response = await addHotel(JSON.stringify(values));
                       console.log(response);
                       handleCloseAdd();
-                      getTasks();
+                      getAllHotels();
                     } catch (err) {
                       console.log(err);
                     }
                   }}
-                  validationSchema={taskValidator}
                 >
                   {({ isSubmitting }) => (
                     <Grid container component="main" sx={{ height: "100vh" }}>
@@ -215,11 +219,20 @@ const ProfileEvents = () => {
                           <Form>
                             <Stack sx={{ mt: 1 }} spacing={2}>
                               <Box sx={{ mb: 1 }} />
-                              <label className="mt-3">Title</label>
+
+                              <label className="mt-3">Nom Hotel</label>
                               <InputText
                                 type="text"
-                                name="name"
-                                placeholder="Title"
+                                name="nom"
+                                placeholder="Nom Hotel"
+                                variant="outlined"
+                                className="mt-4"
+                              />
+                              <label className="mt-3">Adresse Hotel</label>
+                              <InputText
+                                type="text"
+                                name="adresse"
+                                placeholder="Nom Hotel"
                                 variant="outlined"
                                 className="mt-4"
                               />
@@ -238,26 +251,22 @@ const ProfileEvents = () => {
                                 variant="outlined"
                               />
 
+                              <label className="mt-3">Etoiles</label>
                               <MultipleSelect
-                                name="requirements"
-                                label="Requirements"
-                                options={options}
-                                required
-                                multiple
-                              />
-                              <label className="mt-3">Nombre Condidat</label>
-                              <MultipleSelect
-                                name="nombre"
-                                label="Nombre Condidat"
-                                options={optionsNombre}
+                                name="etoiles"
+                                type="number"
+                                label="Nombre etoiles"
+                                options={optionsEtoiles}
                                 required
                               />
-                              <label className="mt-3">Expires Date</label>
+
+                              <label className="mt-3">prixParNuit</label>
                               <InputText
-                                type="date"
-                                name="ExpireDate"
+                                name="prixParNuit"
                                 variant="outlined"
+                                type="number"
                                 className="mt-4"
+                                required
                               />
 
                               <Button

@@ -111,7 +111,7 @@ const CompanyOffers = () => {
         <Container>
           <div className="">
             <h1 className=" mb-5" style={{ fontWeight: "bold" }}>
-              Job Offers:
+              Chambres:
             </h1>
             <div className="d-flex flex-row flex-wrap gap-5">
               {offers &&
