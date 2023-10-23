@@ -27,7 +27,7 @@ const Flights = () => {
     ticketPrice: 0,
   };
 
-  const [flights, setFlights] = useState();
+  const [flights, setFlights] = useState([]);
   const [showAdd, setShowAdd] = useState(false);
 
   const [filterMode, setFilterMode] = useState("");

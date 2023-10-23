@@ -8,6 +8,7 @@ import { Form, Formik } from "formik";
 import { Stack } from "@mui/material";
 import { addOfferSchema } from "../../schemas/offer.shema";
 import MultipleSelect from "../Select";
+import { deleteFlight } from "../../api/flight";
 function Popup(props) {
   return (
     <div className="popup">
@@ -97,8 +98,10 @@ const CardFlight = ({
   };
 
   const handleDelete = async (id) => {
-    // const response = await deleteOffer(id);
-    // offers();
+     const response = await deleteFlight(id);
+     
+     console.log(id)
+    
   };
 
   const navigate = useNavigate();

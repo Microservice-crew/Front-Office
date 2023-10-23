@@ -6,20 +6,22 @@ import { Col, Container } from "react-bootstrap";
 import CardTask from "../../../components/card/CardTask";
 import ProfileHeader from "../../../components/profile-header";
 import { getAlltasks } from "../../../api/tasks";
+import CardFlight from "../../../components/card/CardFlight";
+import { getAllFlights } from "../../../api/flight";
 // import img58 from "../../../assets/images/page-img/58.jpg";
 // import img57 from "../../../assets/images/page-img/57.jpg";
 // import img59 from "../../../assets/images/page-img/59.jpg";
 // import img6 from "../../../assets/images/page-img/profile-bg6.jpg";
 
 const FlightUser = () => {
-  const [offers, setOffers] = useState();
+  const [flights, setFlights] = useState([]);
 
   const [filterMode, setFilterMode] = useState("");
   const [filterCategory, setFilterCategory] = useState("");
 
   const getOffers = async () => {
     try {
-      const response = await getAlltasks();
+      const response = await getAllFlights();
       const user = JSON.parse(localStorage.getItem("myData")).user;
       if (filterMode === "" || filterMode === "all") {
         if (user.role === "user") {
@@ -38,8 +40,8 @@ const FlightUser = () => {
             })
           );
 
-          setOffers(list);
-        } else setOffers(response.data);
+          setFlights(list);
+        } else setFlights(response.data);
       }
       if (filterCategory === "" || filterCategory === "all") {
         if (user.role === "user") {
@@ -57,10 +59,10 @@ const FlightUser = () => {
               });
             })
           );
-          setOffers(list);
-        } else setOffers(response.data);
+          setFlights(list);
+        } else setFlights(response.data);
       } else {
-        setOffers(
+        setFlights(
           response.data.filter((offer) => {
             return offer.category === filterCategory;
           })
@@ -88,21 +90,18 @@ const FlightUser = () => {
             Flights:
           </h1>
           <div className="d-flex flex-row flex-wrap gap-5">
-            {offers &&
-              offers.map((offer, index) => (
-                <CardTask
-                  key={index}
+            {flights &&
+              flights.map((offer) => (
+                <CardFlight
                   id={offer._id}
-                  name={offer.name}
-                  description={offer.description}
-                  requirements={offer.requirements}
-                  nombre={offer.nombre}
-                  publishedDate={offer.publishedDate}
-                  owner={offer.owner}
-                  ExpireDate={offer.ExpireDate}
-                  appliers={offer.appliers}
-                  maxAppliers={offer.appliers.length}
-                  offers={() => getOffers()}
+                  flightNumber={offer.flightNumber}
+                  departureCity={offer.departureCity}
+                  arrivalDateTime={offer.arrivalDateTime}
+                  departureDateTime={offer.departureDateTime}
+                  arrivalCity={offer.arrivalCity}
+                  airline={offer.airline}
+                  availableSeat={offer.availableSeat}
+                  ticketPrice={offer.ticketPrice}
                 />
               ))}
           </div>

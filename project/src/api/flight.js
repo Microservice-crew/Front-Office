@@ -67,14 +67,14 @@ export const updateFlight = async (idFlight, flight) => {
     }
 };
 
-export const deleteFlight = async (idFlight) => {
+export const deleteFlight = async (id) => {
     const token = JSON.parse(localStorage.getItem("myData")).token;
 
     const config = {
         headers: { Authorization: `Bearer ${token}` },
     };
     try {
-        const response = await AxiosInstance.delete(`/flight/delete/${idFlight}`, config);
+        const response = await AxiosInstance.delete(`/flight/delete/${id}`, config);
         return response.data;
     } catch (error) {
         console.error(error);

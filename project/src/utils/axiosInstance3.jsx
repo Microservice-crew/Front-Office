@@ -1,7 +1,7 @@
 import axios from "axios";
 // const token = localStorage.getItem("myData").token;
 const axiosInstance = axios.create({
-  baseURL: process.env.SPRING_APP_API_URL || "http://localhost:9999/flights",
+  baseURL: process.env.SPRING_APP_API_URL || "http://localhost:8083/flights",
   headers: {
     "Content-Type": "application/json",
   },

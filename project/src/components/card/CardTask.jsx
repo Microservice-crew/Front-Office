@@ -127,59 +127,6 @@ const CardTask = ({ id, nom, adresse, description, etoile, prixParNuit }) => {
     // tasks();
   };
 
-  const options1 = [
-    { label: "react js ", value: "react  js" },
-    { label: "node js ", value: "node  js" },
-    { label: "angular js ", value: "angular  js" },
-    { label: "vue js ", value: "vue  js" },
-    { label: "java ", value: "java" },
-    { label: "python ", value: "python" },
-    { label: "c++ ", value: "c++" },
-    { label: "c# ", value: "c#" },
-    { label: "c ", value: "c" },
-    { label: "php ", value: "php" },
-    { label: "ruby ", value: "ruby" },
-    { label: "swift ", value: "swift" },
-    { label: "kotlin ", value: "kotlin" },
-    { label: "dart ", value: "dart" },
-    { label: "go ", value: "go" },
-    { label: "scala ", value: "scala" },
-    { label: "rust ", value: "rust" },
-    { label: "spring ", value: "spring" },
-    { label: "django ", value: "django" },
-    { label: "laravel ", value: "laravel" },
-    { label: "flask ", value: "flask" },
-    { label: "express ", value: "express" },
-    { label: "spring boot ", value: "spring boot" },
-    { label: "Photoshop ", value: "Photoshop" },
-    { label: "Canva ", value: "Canva" },
-  ];
-
-  const optionsNombre = [
-    { label: "1 - 5", value: "1 - 5" },
-    { label: "1 - 10", value: "1 - 10" },
-    { label: "1 - 15", value: "1 - 15" },
-    { label: "1 - 20", value: "1 - 20" },
-    { label: "1 - 25", value: "1 - 25" },
-    { label: "1 - 30", value: "1 - 30" },
-    { label: "1 - 35", value: "1 - 35" },
-    { label: "1 - 40", value: "1 - 40" },
-    { label: "1 - 45", value: "1 - 45" },
-    { label: "1 - 50", value: "1 - 50" },
-    { label: "1 - 55 ", value: "1 - 55" },
-    { label: "1 - 60 ", value: "1 - 60" },
-  ];
-
-  const optionsMode = [
-    { label: "Local ", value: "local" },
-    { label: "Remote ", value: "remote" },
-  ];
-
-  const optionsCategory = [
-    { label: "FullTime ", value: "fullTime" },
-    { label: "PartTime ", value: "partTime" },
-    { label: "Internship ", value: "internship" },
-  ];
 
   const optionsEtoiles = [
     { label: "1", value: 1 },
