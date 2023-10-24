@@ -21,7 +21,7 @@ To install this microservice app, follow these steps:
 To use this microservice app, follow these steps:
 
 1. Start the backend server by navigating to the `Backend` directory and running `npm start`.
-2. Start the front-end server by navigating to the `Front-Office` directory and running `npm start`.
+2. Start the front-end server by navigating to the `project` directory and running `npm start`.
 3. Navigate to `http://localhost:3000` in your web browser to access the app.
 
 ## Sub-Services
@@ -44,9 +44,6 @@ This microservice allows users to manage  staff for their trip.
 ### Staff Management Microservice
 This microservice allows users to manage  staff for their trip.
 
-## API Documentation
-
-For detailed API documentation, please refer to the `API.md` file in the root directory of this repository.
 
 ### Collaborators
 - [Arij Hajji](https://github.com/arijhajji-1)
