@@ -6,6 +6,7 @@ const companyValidator = yup.object().shape({
   role: yup.string().required().oneOf(["expert", "company", "user"]),
   numTel: yup.string().required().max(8).min(8),
   city: yup.string().required().max(50).min(2),
+  websiteUrl: yup.string().url(),
 });
 const companyProfileValidator = yup.object().shape({
   name: yup.string().required().max(50).min(2),

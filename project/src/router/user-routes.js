@@ -31,7 +31,12 @@ import RatingsComponentCourse from "../views/dashboard/CourseRatingComponent";
 import TasksEvents from "../views/dashboard/app/TasksEvents";
 import TasksAppliers from "../components/TasksAppliers";
 import CompanyTasks from "../pages/offers/CompanyTasks";
-
+import Staff from "../views/dashboard/app/Staff";
+import StaffUser from "../views/dashboard/app/Staff-User.jsx";
+import Flights from "../views/dashboard/app/flights";
+import FlightUser from "../views/dashboard/app/Flight-User.jsx";
+import Seats from "../views/dashboard/app/Seat";
+import SeatUser from "../views/dashboard/app/Seat-User";
 
 export const SimpleRouter = [
   // delete this
@@ -171,11 +176,65 @@ export const SimpleRouter = [
     ),
   },
   {
+    path: "/dashboards/app/staff",
+    element: (
+      <>
+        <Sidebar />
+        <Header /> <Staff />
+      </>
+    ),
+  },
+  {
+    path: "/dashboards/app/flight",
+    element: (
+      <>
+        <Sidebar />
+        <Header /> <Flights />
+      </>
+    ),
+  },
+  {
+    path: "/dashboards/app/seat",
+    element: (
+      <>
+        <Sidebar />
+        <Header /> <Seats />
+      </>
+    ),
+  },
+  {
     path: "/dashboards/app/allTasks",
     element: (
       <>
         <Sidebar />
         <Header /> <CompanyTasks />
+      </>
+    ),
+  },
+  {
+    path: "/dashboards/app/allStaff",
+    element: (
+      <>
+        <Sidebar />
+        <Header /> <StaffUser />
+      </>
+    ),
+  },
+  {
+    path: "/dashboards/app/allFlight",
+    element: (
+      <>
+        <Sidebar />
+        <Header /> <FlightUser />
+      </>
+    ),
+  },
+  {
+    path: "/dashboards/app/allSeat",
+    element: (
+      <>
+        <Sidebar />
+        <Header /> <SeatUser />
       </>
     ),
   },
@@ -222,7 +281,6 @@ export const SimpleRouter = [
       <>
         <Sidebar />
         <Header /> <TasksAppliers />
-    
       </>
     ),
   },

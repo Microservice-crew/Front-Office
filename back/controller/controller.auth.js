@@ -92,7 +92,7 @@ const signUpCompany = async (req, res) => {
     if (document) {
       return res
         .status(400)
-        .json({ error: { path: "email", msg: "email already registered" } });
+        .json({ error: { path: "email", msg: "document already registered" } });
     }
     if (other) {
       return res
