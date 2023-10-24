@@ -127,7 +127,6 @@ const CardTask = ({ id, nom, adresse, description, etoile, prixParNuit }) => {
     // tasks();
   };
 
-
   const optionsEtoiles = [
     { label: "1", value: 1 },
     { label: "2", value: 2 },
@@ -161,10 +160,9 @@ const CardTask = ({ id, nom, adresse, description, etoile, prixParNuit }) => {
             {/* <img height="70px" width="80px" src="http://www.ensit.tn/wp-content/uploads/2021/02/1549615448898.png" alt="img" /> */}
 
             <h5 className="card-title" style={{ fontWeight: "bold" }}>
-              {nom} ⭐
+              {nom}
             </h5>
           </div>
-          <h6 className="card-subtitle mb-2 text-body-secondary">{adresse}</h6>
           {user && user.role !== "user" && user.role !== "expert" ? (
             <Dropdown>
               <Link to="#">
@@ -203,15 +201,17 @@ const CardTask = ({ id, nom, adresse, description, etoile, prixParNuit }) => {
             <></>
           )}
         </div>
+        <br></br>
         <div className="text-truncate-container">
           <Col className="d-flex w-100 justify-content-evenly ">
-            <h4>Nom Hotel :</h4>
-            <h4>{nom}</h4>
+            <h5>Nom Hotel :</h5>
+            <h5>{nom}</h5>
           </Col>
           <Col className="d-flex w-100 justify-content-evenly ">
-            <h4>Adresse</h4>
+            <h4>Adresse :</h4>
             <h4>{adresse}</h4>
           </Col>
+          <br></br>
           <h4>Description:</h4>
           <textarea
             className="form-control"
@@ -225,16 +225,13 @@ const CardTask = ({ id, nom, adresse, description, etoile, prixParNuit }) => {
             value={description}
             readOnly
           ></textarea>
+          <br></br>
           <Col className="d-flex w-100 justify-content-evenly ">
-            <h4>Etoiles</h4>
-            <h4>{etoile}</h4>
-          </Col>
-          <Col className="d-flex w-100 justify-content-evenly ">
-            <h4>prixParNuit</h4>
-            <h4>{prixParNuit}</h4>
+            <h5>prixParNuit</h5>
+            <h5>{prixParNuit}</h5>
           </Col>
         </div>
-        etoiles
+
         <div className="card-footer d-flex justify-content-center gap-5">
           {user && user.role === "company" ? (
             <button
@@ -303,11 +300,10 @@ const CardTask = ({ id, nom, adresse, description, etoile, prixParNuit }) => {
             {description}
           </textarea>
 
-          <h4 className="my-3">etoiles :</h4>
-          <h4>{etoile}</h4>
+          <h4 className="my-3">etoiles : ⭐⭐⭐⭐</h4>
+          <h4>{etoile} </h4>
 
-          <h4>prixParNuit</h4>
-          <h4>{prixParNuit}</h4>
+          <h4>prixParNuit : {prixParNuit}</h4>
         </Modal.Body>
 
         <Modal.Footer>
